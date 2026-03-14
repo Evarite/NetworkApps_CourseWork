@@ -6,7 +6,7 @@ public class TcpServer {
     private final int port;
     private ServerSocket serverSocket;
     private volatile boolean running = true;
-    Logger logger = Logger.getLogger(TcpServer.class);
+    private final Logger logger = Logger.getLogger(TcpServer.class);
 
     public TcpServer(int port) {
         this.port = port;
@@ -30,21 +30,21 @@ public class TcpServer {
 
     private record ClientHandler(Socket socket, Logger logger) implements Runnable {
         @Override
-            public void run() {
-                try (socket;
-                     BufferedReader in = new BufferedReader
-                             (new InputStreamReader(socket.getInputStream()));
-                     PrintWriter out = new PrintWriter(socket.getOutputStream(), true)) {
-
-                    String line;
-                    while ((line = in.readLine()) != null) {
-                        logger.info("Атрымана: " + line);
-                    }
-                } catch (IOException e) {
-                    System.err.println("Памылка апрацоўкі кліента: " + e.getMessage());
+        public void run() {
+            try (socket;
+                 BufferedReader in = new BufferedReader
+                         (new InputStreamReader(socket.getInputStream()));
+                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true)) {
+                String line;
+                while ((line = in.readLine()) != null) {
+                    logger.info("Атрымана: " + line);
+                    out.println(line);
                 }
+            } catch (IOException e) {
+                logger.error("Памылка апрацоўкі кліента: " + e.getMessage());
             }
         }
+    }
 }
 
 
