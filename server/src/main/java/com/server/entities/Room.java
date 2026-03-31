@@ -1,3 +1,5 @@
+package com.server.entities;
+
 public class Room {
     public enum Type {
         Standard,

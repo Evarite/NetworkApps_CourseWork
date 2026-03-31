@@ -1,3 +1,5 @@
+package com.server.entities;
+
 public class Guest {
     private int accountId;
     private float rating;
