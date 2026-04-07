@@ -24,6 +24,10 @@ public class ClientThread implements Runnable {
             while (true) {
                 Request request = (Request) in.readObject();
                 logger.info("Аперацыя: " + request.getOperation());
+
+                Response response = new Response(true, "Запыт апрацаваны", null);
+
+                out.writeObject(response);
                 out.flush();
             }
 
