@@ -1,5 +1,6 @@
 package com.hotel.server.network;
 
+import com.hotel.common.enums.Operation;
 import com.hotel.common.network.Request;
 import com.hotel.common.network.Response;
 
@@ -28,8 +29,8 @@ public class ClientThread implements Runnable {
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
         ) {
-
-            while (true) {
+            boolean running = true;
+            while (running) {
                 Request request = (Request) in.readObject();
                 logger.info("Аперацыя: " + request.getOperation());
 
@@ -37,6 +38,11 @@ public class ClientThread implements Runnable {
 
                 out.writeObject(response);
                 out.flush();
+
+                if(request.getOperation() == Operation.DISCONNECT) {
+                    logger.info("Кліент адлучыўся");
+                    running = false;
+                }
             }
 
         } catch (Exception e) {

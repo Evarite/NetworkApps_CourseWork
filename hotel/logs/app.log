@@ -1,1 +1,6 @@
 2026-04-07 22:26:28,644 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-11 09:55:55,092 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-11 09:56:22,171 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-11 09:56:22,285 INFO  com.hotel.server.network.ClientThread - Аперацыя: GET_ALL_ROOMS
+2026-04-11 09:56:22,322 INFO  com.hotel.server.network.ClientThread - Аперацыя: DISCONNECT
+2026-04-11 09:56:22,322 INFO  com.hotel.server.network.ClientThread - Кліент адлучыўся
