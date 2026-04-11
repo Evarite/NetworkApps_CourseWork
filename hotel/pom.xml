@@ -24,7 +24,7 @@
     </dependencies>
 
     <modules>
-        <module>serverClient</module>
+        <module>client</module>
         <module>server</module>
         <module>common</module>
     </modules>

@@ -2,10 +2,14 @@ package com.hotel.server.controllers;
 
 import com.hotel.common.network.Request;
 import com.hotel.common.network.Response;
+import com.hotel.server.dao.RoomDao;
 
 public class RoomController {
+    private final RoomDao roomDao = new RoomDao();
+
     public Response getAllRooms(Request request) {
-        return new Response(true, "[У распрацоўцы] Усе пакоі", null);
+        var rooms = roomDao.getAllRooms();
+        return new Response(true, "Атрымана нумароў: " + rooms.size(), rooms.toString());
     }
 
     public Response addRoom(Request request) {

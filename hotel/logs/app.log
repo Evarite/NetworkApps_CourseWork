@@ -4,3 +4,47 @@
 2026-04-11 09:56:22,285 INFO  com.hotel.server.network.ClientThread - Аперацыя: GET_ALL_ROOMS
 2026-04-11 09:56:22,322 INFO  com.hotel.server.network.ClientThread - Аперацыя: DISCONNECT
 2026-04-11 09:56:22,322 INFO  com.hotel.server.network.ClientThread - Кліент адлучыўся
+2026-04-11 19:23:29,980 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-11 19:23:37,624 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-11 19:23:37,677 INFO  com.hotel.server.network.ClientThread - Аперацыя: GET_ALL_ROOMS
+2026-04-11 19:23:37,971 INFO  com.hotel.server.network.ClientThread - Аперацыя: DISCONNECT
+2026-04-11 19:23:37,972 INFO  com.hotel.server.network.ClientThread - Кліент адлучыўся
+2026-04-11 19:30:26,070 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-11 19:30:29,396 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-11 19:30:29,434 INFO  com.hotel.server.network.ClientThread - Аперацыя: GET_ALL_ROOMS
+2026-04-11 19:30:29,659 ERROR com.hotel.client.network.ServerClient - Узнікла памылка падчас адпраўкі запыту: null
+2026-04-11 19:30:48,008 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-11 19:30:52,035 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-11 19:30:52,073 INFO  com.hotel.server.network.ClientThread - Аперацыя: GET_ALL_ROOMS
+2026-04-11 19:30:52,280 ERROR com.hotel.client.network.ServerClient - Узнікла памылка падчас адпраўкі запыту: null
+2026-04-11 19:34:46,166 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-11 19:34:50,398 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-11 19:34:50,439 INFO  com.hotel.server.network.ClientThread - Аперацыя: GET_ALL_ROOMS
+2026-04-11 19:34:50,644 ERROR com.hotel.client.network.ServerClient - Узнікла памылка падчас адпраўкі запыту: null
+2026-04-11 19:40:10,102 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-11 19:40:19,574 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-11 19:40:25,306 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-11 19:40:25,369 INFO  com.hotel.server.network.ClientThread - Аперацыя: GET_ALL_ROOMS
+2026-04-11 19:41:52,983 ERROR com.hotel.client.network.ServerClient - Узнікла памылка падчас адпраўкі запыту: null
+2026-04-11 19:43:01,692 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-11 19:43:04,604 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-11 19:43:04,658 INFO  com.hotel.server.network.ClientThread - Аперацыя: GET_ALL_ROOMS
+2026-04-11 19:43:25,001 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-11 19:43:26,916 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-11 19:43:26,966 INFO  com.hotel.server.network.ClientThread - Аперацыя: GET_ALL_ROOMS
+2026-04-11 19:43:43,098 ERROR com.hotel.client.network.ServerClient - Узнікла памылка падчас адпраўкі запыту: null
+2026-04-11 19:46:34,139 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-11 19:46:35,430 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-11 19:46:35,475 INFO  com.hotel.server.network.ClientThread - Аперацыя: GET_ALL_ROOMS
+2026-04-11 19:46:35,703 ERROR com.hotel.client.network.ServerClient - Узнікла памылка падчас адпраўкі запыту: null
+2026-04-11 19:47:11,473 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-11 19:51:36,113 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-11 19:51:38,672 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-11 19:51:38,712 INFO  com.hotel.server.network.ClientThread - Аперацыя: GET_ALL_ROOMS
+2026-04-11 19:51:38,980 INFO  com.hotel.server.network.ClientThread - Аперацыя: DISCONNECT
+2026-04-11 19:51:38,981 INFO  com.hotel.server.network.ClientThread - Кліент адлучыўся
+2026-04-11 19:53:36,882 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-11 19:53:41,205 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-11 19:53:41,248 INFO  com.hotel.server.network.ClientThread - Аперацыя: GET_ALL_ROOMS
+2026-04-11 19:53:41,590 INFO  com.hotel.server.network.ClientThread - Аперацыя: DISCONNECT
+2026-04-11 19:53:41,590 INFO  com.hotel.server.network.ClientThread - Кліент адлучыўся

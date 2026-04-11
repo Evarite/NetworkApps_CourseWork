@@ -25,6 +25,6 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>serverClient</artifactId>
+    <artifactId>client</artifactId>
 
 </project>
