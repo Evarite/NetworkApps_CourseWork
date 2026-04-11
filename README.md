@@ -1,2 +1,2 @@
-hotel/ - гэта тэчка праэкта, у якім ляжаць тры модулі: server, client, common.
+hotel/ - гэта тэчка праэкта, у якой ляжаць тры модулі: server, client, common.
 database/ - дамп базы дадзеных
