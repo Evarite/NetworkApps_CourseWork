@@ -76,6 +76,7 @@ public class ClientThread implements Runnable {
 
                 case CREATE_RESERVATION -> reservationController.createReservation(request);
                 case CANCEL_RESERVATION -> reservationController.cancelReservation(request);
+                case CHECK_OUT -> reservationController.checkOut(request);
                 case GET_MY_RESERVATIONS -> reservationController.getMyReservations(request);
                 case GET_ALL_RESERVATIONS -> reservationController.getAllReservation(request);
                 case APPROVE_RESERVATION -> reservationController.approveReservation(request);

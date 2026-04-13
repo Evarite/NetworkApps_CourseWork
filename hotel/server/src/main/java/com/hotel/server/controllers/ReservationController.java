@@ -10,6 +10,9 @@ public class ReservationController {
     public Response cancelReservation(Request request) {
         return new Response(true, "У распрацоўцы", null);
     }
+    public Response checkOut(Request request) {
+        return new Response(true, "У распрацоўцы", null);
+    }
     public Response getMyReservations(Request request) {
         return new Response(true, "У распрацоўцы", null);
     }

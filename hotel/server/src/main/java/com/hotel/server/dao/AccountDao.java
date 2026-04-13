@@ -14,10 +14,11 @@ public class AccountDao {
         try (Connection conn = DatabaseManager.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, email);
-            ResultSet rs = stmt.executeQuery();
 
-            if(rs.next())
-                return readAccount(rs);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next())
+                    return readAccount(rs);
+            }
             return null;
         } catch (SQLException e) {
             throw new RuntimeException("Памылка падчас пошука акаўнту па email", e);
@@ -54,14 +55,15 @@ public class AccountDao {
             stmt.setDate(5, new java.sql.Date(birthDate.getTime()));
 
             stmt.executeUpdate();
-            ResultSet keys = stmt.getGeneratedKeys();
 
-            if(!keys.next())
-                throw new RuntimeException("Не атрымалася атрымаць ID новага акаўнту");
+            try(ResultSet keys = stmt.getGeneratedKeys()) {
+                if (!keys.next())
+                    throw new RuntimeException("Не атрымалася атрымаць ID новага акаўнту");
 
-            int newId = keys.getInt(1);
+                int newId = keys.getInt(1);
 
-            return new Account(newId, email, firstName, lastName, hashedPassword, birthDate);
+                return new Account(newId, email, firstName, lastName, hashedPassword, birthDate);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

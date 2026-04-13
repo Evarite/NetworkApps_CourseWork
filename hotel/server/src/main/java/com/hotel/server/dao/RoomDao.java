@@ -2,7 +2,6 @@ package com.hotel.server.dao;
 
 import com.hotel.server.config.DatabaseManager;
 import com.hotel.common.entities.Room;
-import com.hotel.server.exceptions.ResponseException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -36,9 +35,8 @@ public class RoomDao {
         String sql = "SELECT * FROM room WHERE status = 'available'";
 
         try (Connection conn = DatabaseManager.getConnection();
-        PreparedStatement stmt = conn.prepareStatement(sql)) {
-            ResultSet rs = stmt.executeQuery();
-
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
             while(rs.next()) {
                 rooms.add(readRoom(rs));
             }
