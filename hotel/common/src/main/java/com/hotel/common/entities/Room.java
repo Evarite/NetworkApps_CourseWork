@@ -24,6 +24,16 @@ public class Room implements Serializable{
         MAINTENANCE
     }
 
+    public Room() {
+        number = 0;
+        floor = 0;
+        type = null;
+        capacity = null;
+        description = null;
+        status = null;
+        price = 0;
+    }
+
     public Room(int number, int floor, Type type, Capacity capacity, String description,
                 Status status, float price) {
         this.number = number;

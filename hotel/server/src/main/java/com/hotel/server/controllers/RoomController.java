@@ -11,13 +11,12 @@ public class RoomController {
     private final ObjectMapper mapper = new ObjectMapper();
 
     public Response getAllRooms(Request request) {
-        var rooms = roomDao.getAllRooms();
-
         try {
+            var rooms = roomDao.getAllRooms();
             String json = mapper.writeValueAsString(rooms);
             return new Response(true, "Атрымана нумароў: " + rooms.size(), json);
         } catch(Exception e) {
-            throw new ResponseException("Памылка падчас стварэння JSON файла: ");
+            throw new ResponseException("Памылка падчас запыту: " + e.getMessage());
         }
     }
 

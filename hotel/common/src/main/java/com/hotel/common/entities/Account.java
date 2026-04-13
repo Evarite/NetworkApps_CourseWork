@@ -35,6 +35,7 @@ public class Account implements Serializable {
     public Date getBirthDate() {
         return birthDate;
     }
+    public String getPassword() { return password; }
 
     public void setEmail(String email) {
         this.email = email;

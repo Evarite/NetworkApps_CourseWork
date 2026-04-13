@@ -12,7 +12,7 @@ public class DatabaseManager {
         config.setJdbcUrl("jdbc:mysql://localhost:3306/hotel?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true");
         config.setUsername("java_cw_app");
         config.setPassword("java_cw_app_password");
-        config.setMinimumIdle(10);
+        config.setMaximumPoolSize(10);
         config.setMinimumIdle(2);
 
         dataSource = new HikariDataSource(config);
