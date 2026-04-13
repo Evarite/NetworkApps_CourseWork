@@ -4,12 +4,11 @@ import com.hotel.common.entities.Account;
 import com.hotel.server.config.DatabaseManager;
 import org.mindrot.jbcrypt.BCrypt;
 
-import javax.xml.crypto.Data;
 import java.sql.*;
 import java.util.Date;
 
-public class UserDao {
-    private Account findByEmail(String email) {
+public class AccountDao {
+    public Account findByEmail(String email) {
         String sql = "SELECT * FROM account WHERE email = ?";
 
         try (Connection conn = DatabaseManager.getConnection();

@@ -1,6 +1,7 @@
 package com.hotel.server.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hotel.common.entities.Room;
 import com.hotel.common.network.Request;
 import com.hotel.common.network.Response;
 import com.hotel.server.dao.RoomDao;
@@ -20,19 +21,63 @@ public class RoomController {
         }
     }
 
+    public Response getAvailableRooms(Request request) {
+        try {
+            var rooms = roomDao.getAvailableRooms();
+            String json = mapper.writeValueAsString(rooms);
+            return new Response(true, "Атрымана нумароў: " + rooms.size(), json);
+        } catch (Exception e) {
+            throw new ResponseException("Памылка падчас запыту: " + e.getMessage());
+        }
+    }
+
     public Response addRoom(Request request) {
-        return new Response(true, "[У распрацоўцы] Дадаць пакой", null);
+        try {
+            Room room = mapper.readValue(request.getData(), Room.class);
+            roomDao.addRoom(room);
+            return new Response(true, "Створана паспяхова", null);
+        } catch (Exception e) {
+            throw new ResponseException("Памылка падчас запыту: " + e.getMessage());
+        }
     }
 
     public Response closeRoom(Request request) {
-        return new Response(true, "[У распрацоўцы] Зачыніць пакой", null);
+        try {
+            int number = mapper.readValue(request.getData(), Integer.class);
+            roomDao.closeRoom(number);
+            return new Response(true, "Зачынена паспяхова", null);
+        } catch (Exception e) {
+            throw new ResponseException("Памылка падчас запыту: " + e.getMessage());
+        }
     }
 
     public Response deleteRoom(Request request) {
-        return new Response(true, "[У распрацоўцы] Выдаліць пакой", null);
+        try {
+            int number = mapper.readValue(request.getData(), Integer.class);
+            roomDao.deleteRoom(number);
+            return new Response(true, "Выдалена паспяхова", null);
+        } catch (Exception e) {
+            throw new ResponseException("Памылка падчас запыту: " + e.getMessage());
+        }
     }
 
     public Response updateRoom(Request request) {
-        return new Response(true, "[У распрацоўцы] Аднавіць пакой", null);
+        try {
+            Room room = mapper.readValue(request.getData(), Room.class);
+            roomDao.updateRoom(room);
+            return new Response(true, "Створана паспяхова", null);
+        } catch (Exception e) {
+            throw new ResponseException("Памылка падчас запыту: " + e.getMessage());
+        }
+    }
+
+    public Response openRoom(Request request) {
+        try {
+            int number = mapper.readValue(request.getData(), Integer.class);
+            roomDao.openRoom(number);
+            return new Response(true, "Выдалена паспяхова", null);
+        } catch (Exception e) {
+            throw new ResponseException("Памылка падчас запыту: " + e.getMessage());
+        }
     }
 }

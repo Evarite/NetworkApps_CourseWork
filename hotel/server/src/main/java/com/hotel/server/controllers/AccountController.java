@@ -6,13 +6,13 @@ import com.hotel.common.dto.RegisterRequest;
 import com.hotel.common.entities.Account;
 import com.hotel.common.network.Response;
 import com.hotel.common.network.Request;
-import com.hotel.server.dao.UserDao;
+import com.hotel.server.dao.AccountDao;
 import com.hotel.server.exceptions.ResponseException;
 
 import java.util.Date;
 
-public class UserController {
-    private final UserDao userDao = new UserDao();
+public class AccountController {
+    private final AccountDao accountDao = new AccountDao();
     private final ObjectMapper mapper = new ObjectMapper();
 
     public Response login(Request request) {
@@ -26,7 +26,7 @@ public class UserController {
             if(password == null)
                 return new Response(false, "Пароль пакінуты пустым", null);
 
-            Account account = userDao.login(email, password);
+            Account account = accountDao.login(email, password);
 
             String json = mapper.writeValueAsString(account);
             return new Response(true, "Уваход пасьпяховы", json);
@@ -55,7 +55,7 @@ public class UserController {
             if(birthDate == null)
                 return new Response(false, "Дата нараджэньня пакінутая пустой", null);
 
-            Account account = userDao.register(email, password, firstName, lastName, birthDate);
+            Account account = accountDao.register(email, password, firstName, lastName, birthDate);
 
             if (account == null) {
                 return new Response(false, "Гэты email ужо заняты", null);

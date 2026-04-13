@@ -6,7 +6,10 @@ public enum Operation {
 
     DISCONNECT,
 
-    UPDATE_PROFILE,
+    UPDATE_ACCOUNT,
+    GET_ALL_ACCOUNTS,
+    GET_ACCOUNT_BY_ID,
+    GET_ACCOUNT_BY_EMAIL,
 
     GET_ALL_ROOMS,
     GET_AVAILABLE_ROOMS,
@@ -14,6 +17,10 @@ public enum Operation {
     UPDATE_ROOM,
     DELETE_ROOM,
     CLOSE_ROOM,
+    OPEN_ROOM,
+
+    GET_ALL_GUESTS,
+    GET_ALL_GUESTS_WITH_RESERVATIONS,
 
     CREATE_RESERVATION,
     CANCEL_RESERVATION,
@@ -25,6 +32,4 @@ public enum Operation {
     HIRE_EMPLOYEE,
     FIRE_EMPLOYEE,
     CHANGE_ROLE,
-
-    CHECK_PASSWORD
 }
