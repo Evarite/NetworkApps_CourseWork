@@ -27,7 +27,7 @@ public class ServerApplication {
                 new Thread(clientThread).start();
             }
         } catch (IOException e) {
-            throw new RuntimeException("Падчас працы сервера ўзнікла памылка", e);
+            logger.error("Падчас працы сервера ўзнікла памылка" + e.getMessage());
         }
     }
 }

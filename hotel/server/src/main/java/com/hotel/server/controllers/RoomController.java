@@ -1,15 +1,24 @@
 package com.hotel.server.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hotel.common.network.Request;
 import com.hotel.common.network.Response;
 import com.hotel.server.dao.RoomDao;
+import com.hotel.server.exceptions.ResponseException;
 
 public class RoomController {
     private final RoomDao roomDao = new RoomDao();
+    private final ObjectMapper mapper = new ObjectMapper();
 
     public Response getAllRooms(Request request) {
         var rooms = roomDao.getAllRooms();
-        return new Response(true, "Атрымана нумароў: " + rooms.size(), rooms.toString());
+
+        try {
+            String json = mapper.writeValueAsString(rooms);
+            return new Response(true, "Атрымана нумароў: " + rooms.size(), json);
+        } catch(Exception e) {
+            throw new ResponseException("Памылка падчас стварэння JSON файла: ");
+        }
     }
 
     public Response addRoom(Request request) {

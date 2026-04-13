@@ -80,4 +80,9 @@ public class Room implements Serializable{
     public void setPrice(float price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%d\t%d\t%s", number, floor, description);
+    }
 }

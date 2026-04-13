@@ -3,6 +3,7 @@ package com.hotel.common.enums;
 public enum Operation {
     LOGIN,
     REGISTER,
+
     DISCONNECT,
 
     UPDATE_PROFILE,

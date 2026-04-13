@@ -48,3 +48,12 @@
 2026-04-11 19:53:41,248 INFO  com.hotel.server.network.ClientThread - Аперацыя: GET_ALL_ROOMS
 2026-04-11 19:53:41,590 INFO  com.hotel.server.network.ClientThread - Аперацыя: DISCONNECT
 2026-04-11 19:53:41,590 INFO  com.hotel.server.network.ClientThread - Кліент адлучыўся
+2026-04-11 23:59:27,910 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-11 23:59:32,034 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-11 23:59:32,097 INFO  com.hotel.server.network.ClientThread - Аперацыя: GET_ALL_ROOMS
+2026-04-11 23:59:32,350 INFO  com.hotel.server.network.ClientThread - Аперацыя: DISCONNECT
+2026-04-11 23:59:32,350 INFO  com.hotel.server.network.ClientThread - Кліент адлучыўся
+2026-04-13 09:52:15,979 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-13 09:52:23,976 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-13 09:52:24,310 INFO  com.hotel.server.network.ClientThread - Аперацыя: GET_ALL_ROOMS
+2026-04-13 09:52:25,482 ERROR com.hotel.server.network.ClientThread - Кліент адлучыўся: Socket[addr=/127.0.0.1,port=49772,localport=6666]
