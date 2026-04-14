@@ -45,7 +45,7 @@ public class EmployeeDao {
     public void fireEmployee(int accountId) {
         String sql = "DELETE FROM employee WHERE account_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
-        PreparedStatement stmt = conn.prepareStatement(sql)) {
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, accountId);
 
             stmt.executeUpdate();
@@ -57,7 +57,7 @@ public class EmployeeDao {
     public void changeRole(int accountId, Employee.Position newPosition) {
         String sql = "UPDATE employee SET position = ? WHERE account_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
-        PreparedStatement stmt = conn.prepareStatement(sql)) {
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, newPosition.name().toLowerCase());
             stmt.setInt(2, accountId);
         } catch (SQLException e) {

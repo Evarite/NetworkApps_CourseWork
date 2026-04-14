@@ -66,6 +66,23 @@ public class ReservationDao {
         }
     }
 
+    public List<Reservation> getAllReservations() {
+        String sql = "SELECT * FROM reservation";
+
+        try(Connection conn = DatabaseManager.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery()) {
+
+            List<Reservation> reservations = new ArrayList<>();
+            while (rs.next())
+                reservations.add(readReservation(rs));
+
+            return reservations;
+        } catch (SQLException e) {
+            throw new RuntimeException("Памылка падчас чытання браніраванняў", e);
+        }
+    }
+
     private Reservation readReservation(ResultSet rs) throws SQLException {
         return new Reservation(rs.getInt("id"),
                 rs.getInt("guest_id"),
