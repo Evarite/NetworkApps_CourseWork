@@ -26,6 +26,9 @@ public class AccountService {
 
         if(!email.contains("@") || !email.split("@")[1].contains("."))
             throw new RuntimeException("Няправільны фармат email");
+        if(accountDao.findByEmail(email) != null) {
+            throw new RuntimeException("Email ужо заняты");
+        }
 
         //Both Cyrillic and Latin Belarusian letters
         String pattern = "[a-zA-Z\\u0400-\\u04FFźžćčńłśšŭŹŽĆČŃŁŚŠŬ\\s-]+";

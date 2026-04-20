@@ -2,10 +2,10 @@ package com.hotel.server.dao;
 
 import com.hotel.common.entities.Account;
 import com.hotel.server.config.DatabaseManager;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class AccountDao {
     public Account findByEmail(String email) {
@@ -30,19 +30,13 @@ public class AccountDao {
 
         if(account == null)
             return null;
-        if(!BCrypt.checkpw(password, account.getPassword()))
+        if(Objects.equals(password, account.getPassword()))
             return null;
         return account;
     }
 
     public Account register(String email, String firstName, String lastName, String password,
                             LocalDate birthDate) {
-        if(findByEmail(email) != null) {
-            throw new RuntimeException("Email ужо заняты");
-        }
-
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-
         String sql = "INSERT INTO account (email, first_name, last_name, password_hash, birth_date) " +
                 "VALUES (?, ?, ?, ?, ?)";
 
@@ -51,7 +45,7 @@ public class AccountDao {
             stmt.setString(1, email);
             stmt.setString(2, firstName);
             stmt.setString(3, lastName);
-            stmt.setString(4, hashedPassword);
+            stmt.setString(4, password);
             stmt.setDate(5, Date.valueOf(birthDate));
 
             stmt.executeUpdate();
@@ -62,7 +56,7 @@ public class AccountDao {
 
                 int newId = keys.getInt(1);
 
-                return new Account(newId, email, firstName, lastName, hashedPassword, birthDate);
+                return new Account(newId, email, firstName, lastName, password, birthDate);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

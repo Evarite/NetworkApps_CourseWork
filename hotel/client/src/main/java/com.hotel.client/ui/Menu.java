@@ -8,6 +8,7 @@ import com.hotel.common.entities.Account;
 import com.hotel.common.enums.Operation;
 import com.hotel.common.network.Request;
 import com.hotel.common.network.Response;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -52,12 +53,14 @@ public class Menu {
             } catch (Exception e) {
                 throw new RuntimeException("Памылка падчас атрымання дадзеных карыстальніка" + e.getMessage());
             }
-            if (account != null)
+            if (account != null) {
+                guestMenu(account);
                 break;
+            }
         }
     }
 
-    private void guestMenu() {
+    private void guestMenu(Account account) {
         ArrayList<Operation> operations = new ArrayList<Operation>(List.of(Operation.GET_ALL_ROOMS,
                 Operation.GET_AVAILABLE_ROOMS, Operation.CREATE_RESERVATION, Operation.CANCEL_RESERVATION,
                 Operation.CHECK_OUT, Operation.UPDATE_ACCOUNT, Operation.DISCONNECT));
@@ -77,8 +80,10 @@ public class Menu {
         System.out.println("Пароль: ");
         String password = scanner.nextLine();
 
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
         try {
-            LoginRequest loginRequest = new LoginRequest(email, password);
+            LoginRequest loginRequest = new LoginRequest(email, hashedPassword);
             String json = mapper.writeValueAsString(loginRequest);
             return server.sendRequest(new Request(Operation.LOGIN, json));
         } catch (Exception e) {
@@ -96,13 +101,15 @@ public class Menu {
         System.out.println("Прозьвішча: ");
         String lastName = scanner.nextLine();
 
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
         System.out.println("Дата нараджэньня (дд.ММ.ГГГГ): ");
         String input = scanner.nextLine();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         LocalDate date = LocalDate.parse(input, formatter);
 
         try {
-            RegisterRequest registerRequest = new RegisterRequest(email, password, firstName, lastName, date);
+            RegisterRequest registerRequest = new RegisterRequest(email, hashedPassword, firstName, lastName, date);
             String json = mapper.writeValueAsString(registerRequest);
             return server.sendRequest(new Request(Operation.REGISTER, json));
         } catch (Exception e) {
