@@ -3,10 +3,7 @@ package com.hotel.server.dao;
 import com.hotel.common.entities.Employee;
 import com.hotel.server.config.DatabaseManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +31,7 @@ public class EmployeeDao {
             stmt.setInt(1, employee.getAccountId());
             stmt.setString(2, employee.getPosition().name().toLowerCase());
             stmt.setFloat(3, employee.getSalary());
-            stmt.setDate(4, new java.sql.Date(employee.getHireDate().getTime()));
+            stmt.setDate(4, Date.valueOf(employee.getHireDate()));
 
             stmt.executeUpdate();
         } catch (Exception e) {
@@ -60,6 +57,8 @@ public class EmployeeDao {
             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, newPosition.name().toLowerCase());
             stmt.setInt(2, accountId);
+
+            stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Памылка пры змене пасады супрацоўніка", e);
         }
@@ -69,6 +68,6 @@ public class EmployeeDao {
         return new Employee(rs.getInt("account_id"),
                 Employee.Position.valueOf(rs.getString("position").toUpperCase()),
                 rs.getFloat("salary"),
-                rs.getDate("date"));
+                rs.getDate("hire_date").toLocalDate());
     }
 }

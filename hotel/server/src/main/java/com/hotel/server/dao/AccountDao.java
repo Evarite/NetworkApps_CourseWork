@@ -5,7 +5,7 @@ import com.hotel.server.config.DatabaseManager;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class AccountDao {
     public Account findByEmail(String email) {
@@ -36,14 +36,14 @@ public class AccountDao {
     }
 
     public Account register(String email, String firstName, String lastName, String password,
-                            Date birthDate) {
+                            LocalDate birthDate) {
         if(findByEmail(email) != null) {
             throw new RuntimeException("Email ужо заняты");
         }
 
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
-        String sql = "INSERT INTO account (email, first_name, last_name, password, birth_date) " +
+        String sql = "INSERT INTO account (email, first_name, last_name, password_hash, birth_date) " +
                 "VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseManager.getConnection();
@@ -52,7 +52,7 @@ public class AccountDao {
             stmt.setString(2, firstName);
             stmt.setString(3, lastName);
             stmt.setString(4, hashedPassword);
-            stmt.setDate(5, new java.sql.Date(birthDate.getTime()));
+            stmt.setDate(5, Date.valueOf(birthDate));
 
             stmt.executeUpdate();
 
@@ -75,8 +75,8 @@ public class AccountDao {
                 rs.getString("email"),
                 rs.getString("first_name"),
                 rs.getString("last_name"),
-                rs.getString("password"),
-                rs.getDate("birth_date")
+                rs.getString("password_hash"),
+                rs.getDate("birth_date").toLocalDate()
         );
     }
 }

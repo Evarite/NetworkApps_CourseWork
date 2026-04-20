@@ -1,12 +1,12 @@
 package com.hotel.common.dto;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class ReservationRequest implements Serializable {
     private int guestId;
     private int roomNumber;
-    private Date reservationDate;
+    private LocalDate reservationDate;
     private int duration;
 
     public ReservationRequest() {}
@@ -17,7 +17,7 @@ public class ReservationRequest implements Serializable {
     public int getRoomNumber() {
         return roomNumber;
     }
-    public Date getReservationDate() {
+    public LocalDate getReservationDate() {
         return reservationDate;
     }
     public int getDuration() {

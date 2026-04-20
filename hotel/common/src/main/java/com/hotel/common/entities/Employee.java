@@ -1,7 +1,7 @@
 package com.hotel.common.entities;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Employee implements Serializable {
     public enum Position {
@@ -13,9 +13,9 @@ public class Employee implements Serializable {
     private final int accountId;
     private Position position;
     private float salary;
-    private Date hireDate;
+    private LocalDate hireDate;
 
-    public Employee (int accountId, Position position, float salary, Date hireDate) {
+    public Employee (int accountId, Position position, float salary, LocalDate hireDate) {
         this.accountId = accountId;
         this.position = position;
         this.salary = salary;
@@ -31,7 +31,7 @@ public class Employee implements Serializable {
     public float getSalary() {
         return salary;
     }
-    public Date getHireDate() {
+    public LocalDate getHireDate() {
         return hireDate;
     }
 
@@ -41,7 +41,7 @@ public class Employee implements Serializable {
     public void setSalary(float salary) {
         this.salary = salary;
     }
-    public void setHireDate(Date hireDate) {
+    public void setHireDate(LocalDate hireDate) {
         this.hireDate = hireDate;
     }
 }

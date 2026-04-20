@@ -41,6 +41,9 @@ public class ServerClient {
     }
 
     public Response sendRequest(Request request) {
+        if(out == null || in == null)
+            throw new IllegalStateException("Няма злучэння з серверам");
+
         try {
             out.writeObject(request);
             out.flush();

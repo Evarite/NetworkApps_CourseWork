@@ -1,7 +1,7 @@
 package com.hotel.common.entities;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Account implements Serializable {
     private final int id;
@@ -9,9 +9,10 @@ public class Account implements Serializable {
     private String firstName;
     private String lastName;
     private String password; //Hashed
-    private final Date birthDate;
+    private final LocalDate birthDate;
 
-    public Account (int id, String email, String firstName, String lastName, String password, Date birthDate) {
+    public Account (int id, String email, String firstName, String lastName, String password,
+                    LocalDate birthDate) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;
@@ -32,7 +33,7 @@ public class Account implements Serializable {
     public String getLastName() {
         return lastName;
     }
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
     public String getPassword() { return password; }

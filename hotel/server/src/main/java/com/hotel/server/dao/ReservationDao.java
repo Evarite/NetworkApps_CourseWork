@@ -3,17 +3,14 @@ package com.hotel.server.dao;
 import com.hotel.common.entities.Reservation;
 import com.hotel.server.config.DatabaseManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ReservationDao {
     //Add status as approved or awaiting
-    public void createReservation(int guestId, int roomNumber, Date reservationDate, int duration) {
+    public void createReservation(int guestId, int roomNumber, LocalDate reservationDate, int duration) {
         String sql = "INSERT INTO reservation(guest_id, room_number, reservation_date, duration)" +
                 "VALUES (?, ?, ?, ?)";
 
@@ -21,7 +18,7 @@ public class ReservationDao {
             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, guestId);
             stmt.setInt(2, roomNumber);
-            stmt.setDate(3, new java.sql.Date (reservationDate.getTime()));
+            stmt.setDate(3, Date.valueOf(reservationDate));
             stmt.setInt(4, duration);
 
             stmt.executeUpdate();
@@ -48,7 +45,7 @@ public class ReservationDao {
     }
 
     public List<Reservation> getMyReservations(int accountId) {
-        String sql = "SELECT * FROM reservation WHERE account_id = ?";
+        String sql = "SELECT * FROM reservation WHERE guest_id = ?";
 
         try(Connection conn = DatabaseManager.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -87,7 +84,7 @@ public class ReservationDao {
         return new Reservation(rs.getInt("id"),
                 rs.getInt("guest_id"),
                 rs.getInt("room_number"),
-                rs.getDate("reservation_date"),
+                rs.getDate("reservation_date").toLocalDate(),
                 rs.getInt("duration"));
     }
 }

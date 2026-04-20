@@ -45,8 +45,8 @@ public class Room implements Serializable{
         this.price = price;
     }
 
-    private final int number;
-    private final int floor;
+    private int number;
+    private int floor;
     private Type type;
     private Capacity capacity;
     private String description;

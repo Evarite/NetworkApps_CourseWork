@@ -1,16 +1,16 @@
 package com.hotel.common.entities;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Reservation implements Serializable{
     private final int id;
     private final int guestId;
     private int roomNumber;
-    private Date reservationDate;
+    private LocalDate reservationDate;
     private int duration;
 
-    public Reservation(int id, int guestId, int roomNumber, Date reservationDate, int duration) {
+    public Reservation(int id, int guestId, int roomNumber, LocalDate reservationDate, int duration) {
         this.id = id;
         this.guestId = guestId;
         this.roomNumber = roomNumber;
@@ -27,7 +27,7 @@ public class Reservation implements Serializable{
     public int getRoomNumber() {
         return roomNumber;
     }
-    public Date getReservationDate() {
+    public LocalDate getReservationDate() {
         return reservationDate;
     }
     public int getDuration() {
@@ -37,7 +37,7 @@ public class Reservation implements Serializable{
     public void setRoomNumber(int roomNumber) {
         this.roomNumber = roomNumber;
     }
-    public void setReservationDate(Date reservationDate) {
+    public void setReservationDate(LocalDate reservationDate) {
         this.reservationDate = reservationDate;
     }
     public void setDuration(int duration) {
