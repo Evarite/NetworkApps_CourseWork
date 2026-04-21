@@ -9,6 +9,7 @@ import com.hotel.common.enums.Operation;
 import com.hotel.common.network.Request;
 import com.hotel.common.network.Response;
 import org.mindrot.jbcrypt.BCrypt;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -22,6 +23,7 @@ public class Menu {
     private final ServerClient server;
 
     public Menu(ServerClient server) {
+        mapper.registerModule(new JavaTimeModule());
         this.server = server;
     }
 
@@ -33,7 +35,7 @@ public class Menu {
                     3. Выхад
                     """);
             int choice = scanner.nextInt();
-            scanner.next();
+            scanner.nextLine();
 
             Response response = new Response(false, null, null);
             switch (choice) {

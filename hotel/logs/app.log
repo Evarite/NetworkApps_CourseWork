@@ -71,3 +71,23 @@
 2026-04-19 11:21:52,841 INFO  com.hotel.server.network.ClientThread - Аперацыя: GET_ALL_ROOMS
 2026-04-19 11:21:53,016 INFO  com.hotel.server.network.ClientThread - Аперацыя: DISCONNECT
 2026-04-19 11:21:53,017 INFO  com.hotel.server.network.ClientThread - Кліент адлучыўся
+2026-04-20 23:58:30,487 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-20 23:58:35,496 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-21 00:03:33,487 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-21 00:03:38,226 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-21 00:04:01,551 ERROR com.hotel.server.network.ClientThread - Кліент адлучыўся: Socket[addr=/127.0.0.1,port=61606,localport=6666]
+2026-04-21 00:08:43,542 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-21 00:08:47,870 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-21 00:10:01,736 ERROR com.hotel.server.network.ClientThread - Кліент адлучыўся: Socket[addr=/127.0.0.1,port=64251,localport=6666]
+2026-04-21 22:45:09,761 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-21 22:46:11,749 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-21 22:51:08,665 INFO  com.hotel.server.network.ClientThread - Аперацыя: Стварыць новы акаўнт
+2026-04-21 22:51:08,789 ERROR com.hotel.server.network.ClientThread - Памылка падчас апрацоўкі запыту: Памылка падчас рэгістрацыі: Java 8 date/time type `java.time.LocalDate` not supported by default: add Module "com.fasterxml.jackson.datatype:jackson-datatype-jsr310" to enable handling
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 173] (through reference chain: com.hotel.common.dto.RegisterRequest["birthDate"])
+java.io.PrintWriter@369975ea
+2026-04-21 22:51:09,286 ERROR com.hotel.server.network.ClientThread - Кліент адлучыўся: Socket[addr=/127.0.0.1,port=50729,localport=6666]
+2026-04-22 00:13:09,488 ERROR com.hotel.client.network.ServerClient - Узнікла памылка падчас падлучэння: Connection refused: connect
+2026-04-22 00:13:22,874 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-22 00:13:27,166 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-22 00:14:26,818 INFO  com.hotel.server.network.ClientThread - Аперацыя: Стварыць новы акаўнт
+2026-04-22 00:14:28,208 ERROR com.hotel.server.network.ClientThread - Кліент адлучыўся: Socket[addr=/127.0.0.1,port=58485,localport=6666]

@@ -1,6 +1,7 @@
 package com.hotel.server.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.hotel.common.dto.ChangeRoleRequest;
 import com.hotel.common.entities.Employee;
 import com.hotel.common.network.Request;
@@ -11,6 +12,10 @@ import com.hotel.server.exceptions.ResponseException;
 public class EmployeeController {
     private final EmployeeDao employeeDao = new EmployeeDao();
     private final ObjectMapper mapper = new ObjectMapper();
+
+    public EmployeeController() {
+        mapper.registerModule(new JavaTimeModule());
+    }
 
     public Response getAllEmployees(Request request) {
         try {

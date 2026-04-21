@@ -1,6 +1,7 @@
 package com.hotel.server.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.hotel.common.dto.LoginRequest;
 import com.hotel.common.dto.RegisterRequest;
 import com.hotel.common.entities.Account;
@@ -16,6 +17,10 @@ public class AccountController {
     private final AccountDao accountDao = new AccountDao();
     private final AccountService accountService = new AccountService(accountDao);
     private final ObjectMapper mapper = new ObjectMapper();
+
+    public AccountController() {
+        mapper.registerModule(new JavaTimeModule());
+    }
 
     public Response login(Request request) {
         try {
