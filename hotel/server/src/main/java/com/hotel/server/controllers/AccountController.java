@@ -25,17 +25,10 @@ public class AccountController {
     public Response login(Request request) {
         try {
             LoginRequest data = mapper.readValue(request.getData(), LoginRequest.class);
-            String email = data.getEmail();
-            String password = data.getPassword();
+            String email = data.email();
+            String password = data.password();
 
-            if(email == null)
-                return new Response(false, "Email пакінуты пустым", null);
-            if(password == null)
-                return new Response(false, "Пароль пакінуты пустым", null);
-
-            Account account = accountDao.login(email, password);
-            if(account == null)
-                return new Response(false, "Няправільны пароль або імя акаўнта", null);
+            Account account = accountService.login(email, password);
 
             String json = mapper.writeValueAsString(account);
             return new Response(true, "Уваход пасьпяховы", json);
@@ -60,5 +53,9 @@ public class AccountController {
         } catch (Exception e) {
             throw new ResponseException("Памылка падчас рэгістрацыі: " + e.getMessage());
         }
+    }
+
+    public Response updateAccount() {
+
     }
 }

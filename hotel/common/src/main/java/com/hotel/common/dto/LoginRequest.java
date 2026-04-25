@@ -2,19 +2,8 @@ package com.hotel.common.dto;
 
 import java.io.Serializable;
 
-public class LoginRequest implements Serializable {
-    private final String email;
-    private final String password;
-
-    public LoginRequest(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-    public String getPassword() {
-        return password;
+public record LoginRequest(String email, String password) implements Serializable {
+    public LoginRequest() {
+        this(null, null);
     }
 }

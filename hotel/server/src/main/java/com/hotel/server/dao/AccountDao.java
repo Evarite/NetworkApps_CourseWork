@@ -28,9 +28,9 @@ public class AccountDao {
     public Account login(String email, String password) {
         Account account = findByEmail(email);
 
-        if(account == null)
+        if (account == null)
             return null;
-        if(Objects.equals(password, account.getPassword()))
+        if (Objects.equals(password, account.getPassword()))
             return null;
         return account;
     }
@@ -41,7 +41,7 @@ public class AccountDao {
                 "VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseManager.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, email);
             stmt.setString(2, firstName);
             stmt.setString(3, lastName);
@@ -50,7 +50,7 @@ public class AccountDao {
 
             stmt.executeUpdate();
 
-            try(ResultSet keys = stmt.getGeneratedKeys()) {
+            try (ResultSet keys = stmt.getGeneratedKeys()) {
                 if (!keys.next())
                     throw new RuntimeException("Не атрымалася атрымаць ID новага акаўнту");
 
@@ -59,7 +59,26 @@ public class AccountDao {
                 return new Account(newId, email, firstName, lastName, password, birthDate);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Памылка падчас рэгістрацыі", e);
+        }
+    }
+
+    public void updateAccount(int id, String newEmail, String newFirstName, String newLastName,
+                              String newPassword) {
+        String sql = "UPDATE account SET email = ?, first_name = ?, last_name = ?, password = ?" +
+                "WHERE id = ?";
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, newEmail);
+            stmt.setString(2, newFirstName);
+            stmt.setString(3, newLastName);
+            stmt.setString(4, newPassword);
+            stmt.setInt(5, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Памылка падчас аднаўлення дадзеных акаўнта", e);
         }
     }
 

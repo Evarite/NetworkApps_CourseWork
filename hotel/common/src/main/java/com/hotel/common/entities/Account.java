@@ -11,6 +11,11 @@ public class Account implements Serializable {
     private String password; //Hashed
     private final LocalDate birthDate;
 
+    public Account() {
+        id = 0;
+        birthDate = null;
+    }
+
     public Account (int id, String email, String firstName, String lastName, String password,
                     LocalDate birthDate) {
         this.id = id;

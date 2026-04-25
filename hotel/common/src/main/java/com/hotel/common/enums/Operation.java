@@ -32,8 +32,11 @@ public enum Operation {
     GET_ALL_EMPLOYEES,
     HIRE_EMPLOYEE,
     FIRE_EMPLOYEE,
-    CHANGE_ROLE;
+    CHANGE_ROLE,
 
+    GET_MY_RESERVATIONS_AFTER_NOW;
+
+    //Remove later
     @Override
     public String toString() {
         return switch (this) {
@@ -63,6 +66,7 @@ public enum Operation {
             case HIRE_EMPLOYEE -> "Уладкаваць супрацоўніка";
             case FIRE_EMPLOYEE -> "Зволніць супрацоўніка";
             case CHANGE_ROLE -> "Змяніць пасаду супрацоўніка";
+            case GET_MY_RESERVATIONS_AFTER_NOW -> "Праглядзець непачатыя браніраванні";
         };
     }
 }

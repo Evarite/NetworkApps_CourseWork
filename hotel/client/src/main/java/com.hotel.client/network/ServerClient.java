@@ -52,8 +52,9 @@ public class ServerClient {
         } catch (Exception e) {
             logger.error("Узнікла памылка падчас адпраўкі запыту: " + e.getMessage());
             System.out.println("Узнікла памылка падчас адпраўкі запыту.");
+
+            return null;
         }
-        return null;
     }
 
     public void disconnect() {

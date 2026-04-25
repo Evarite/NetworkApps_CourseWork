@@ -81,18 +81,20 @@ public class ClientThread implements Runnable {
                 case GET_ALL_RESERVATIONS -> reservationController.getAllReservations(request);
                 case APPROVE_RESERVATION -> reservationController.approveReservation(request);
 
-                case GET_ALL_EMPLOYEES -> new Response(true, "На распрацоўцы", null);
-                case HIRE_EMPLOYEE -> new Response(true, "На распрацоўцы", null);
-                case FIRE_EMPLOYEE -> new Response(true, "На распрацоўцы", null);
-                case CHANGE_ROLE -> new Response(true, "На распрацоўцы", null);
+                case GET_ALL_EMPLOYEES -> employeeController.getAllEmployees(request);
+                case HIRE_EMPLOYEE -> employeeController.hireEmployee(request);
+                case FIRE_EMPLOYEE -> employeeController.fireEmployee(request);
+                case CHANGE_ROLE -> employeeController.changeRole(request);
 
                 case UPDATE_ACCOUNT -> new Response(true, "На распрацоўцы", null);
                 case GET_ALL_ACCOUNTS -> new Response(true, "На распрацоўцы", null);
                 case GET_ACCOUNT_BY_ID -> new Response(true, "На распрацоўцы", null);
                 case GET_ACCOUNT_BY_EMAIL -> new Response(true, "На распрацоўцы", null);
 
-                case GET_ALL_GUESTS -> new Response(true, "На распрацоўцы", null);
-                case GET_ALL_GUESTS_WITH_RESERVATIONS -> new Response(true, "На распрацоўцы", null);
+                case GET_ALL_GUESTS -> guestController.getAllGuests(request);
+                case GET_ALL_GUESTS_WITH_RESERVATIONS -> guestController.getAllGuestsWithReservations(request);
+
+                case GET_MY_RESERVATIONS_AFTER_NOW -> reservationController.getMyReservationsAfterNow(request);
 
                 case DISCONNECT -> new Response(true, "На распрацоўцы", null);
 

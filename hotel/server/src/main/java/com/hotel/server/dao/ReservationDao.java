@@ -80,6 +80,24 @@ public class ReservationDao {
         }
     }
 
+    public List<Reservation> getMyReservationsAfterNow(int accountId) {
+        String sql = "SELECT * FROM reservation WHERE guest_id = ? AND reservation_date > CURRENT_DATE";
+
+        try(Connection conn = DatabaseManager.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, accountId);
+            List<Reservation> reservations = new ArrayList<>();
+            try (ResultSet rs = stmt.executeQuery()) {
+                while(rs.next())
+                    reservations.add(readReservation(rs));
+            }
+
+            return reservations;
+        } catch (Exception e) {
+            throw new RuntimeException("Памылка падчас чытання браніраванняў", e);
+        }
+    }
+
     private Reservation readReservation(ResultSet rs) throws SQLException {
         return new Reservation(rs.getInt("id"),
                 rs.getInt("guest_id"),

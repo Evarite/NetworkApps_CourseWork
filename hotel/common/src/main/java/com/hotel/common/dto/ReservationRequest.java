@@ -11,6 +11,13 @@ public class ReservationRequest implements Serializable {
 
     public ReservationRequest() {}
 
+    public ReservationRequest(int guestId, int roomNumber, LocalDate reservationDate, int duration) {
+        this.guestId = guestId;
+        this.roomNumber = roomNumber;
+        this.reservationDate = reservationDate;
+        this.duration = duration;
+    }
+
     public int getGuestId() {
         return guestId;
     }

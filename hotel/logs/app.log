@@ -91,3 +91,64 @@ java.io.PrintWriter@369975ea
 2026-04-22 00:13:27,166 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
 2026-04-22 00:14:26,818 INFO  com.hotel.server.network.ClientThread - Аперацыя: Стварыць новы акаўнт
 2026-04-22 00:14:28,208 ERROR com.hotel.server.network.ClientThread - Кліент адлучыўся: Socket[addr=/127.0.0.1,port=58485,localport=6666]
+2026-04-22 00:16:57,643 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-22 00:17:23,747 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-22 00:18:07,799 ERROR com.hotel.server.network.ClientThread - Кліент адлучыўся: Socket[addr=/127.0.0.1,port=60454,localport=6666]
+2026-04-22 00:18:11,850 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-22 00:18:56,670 INFO  com.hotel.server.network.ClientThread - Аперацыя: Стварыць новы акаўнт
+2026-04-22 00:18:57,267 ERROR com.hotel.server.network.ClientThread - Памылка падчас апрацоўкі запыту: Памылка падчас рэгістрацыі: Email ужо заняты
+java.io.PrintWriter@25cdcab4
+2026-04-22 00:18:57,755 ERROR com.hotel.server.network.ClientThread - Кліент адлучыўся: Socket[addr=/127.0.0.1,port=56927,localport=6666]
+2026-04-22 00:25:58,082 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-22 00:26:02,375 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-22 00:26:24,915 INFO  com.hotel.server.network.ClientThread - Аперацыя: Увайсці ў акаўнт
+2026-04-22 00:26:24,978 ERROR com.hotel.server.network.ClientThread - Памылка падчас апрацоўкі запыту: Памылка падчас уваходу: Cannot construct instance of `com.hotel.common.dto.LoginRequest` (no Creators, like default constructor, exist): cannot deserialize from Object value (no delegate- or property-based Creator)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 2]
+java.io.PrintWriter@33ac0c11
+2026-04-22 00:27:55,115 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-22 00:27:57,620 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-22 00:28:05,969 INFO  com.hotel.server.network.ClientThread - Аперацыя: Увайсці ў акаўнт
+2026-04-22 00:28:06,063 ERROR com.hotel.server.network.ClientThread - Памылка падчас апрацоўкі запыту: Памылка падчас уваходу: Cannot construct instance of `com.hotel.common.dto.LoginRequest` (no Creators, like default constructor, exist): cannot deserialize from Object value (no delegate- or property-based Creator)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 2]
+java.io.PrintWriter@686b1142
+2026-04-22 00:28:11,395 ERROR com.hotel.server.network.ClientThread - Кліент адлучыўся: Socket[addr=/127.0.0.1,port=50289,localport=6666]
+2026-04-22 00:28:17,596 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-22 00:28:56,964 INFO  com.hotel.server.network.ClientThread - Аперацыя: Увайсці ў акаўнт
+2026-04-22 00:28:56,966 ERROR com.hotel.server.network.ClientThread - Памылка падчас апрацоўкі запыту: Памылка падчас уваходу: Cannot construct instance of `com.hotel.common.dto.LoginRequest` (no Creators, like default constructor, exist): cannot deserialize from Object value (no delegate- or property-based Creator)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 2]
+java.io.PrintWriter@599826a5
+2026-04-22 00:29:38,351 ERROR com.hotel.server.network.ClientThread - Кліент адлучыўся: Socket[addr=/127.0.0.1,port=58259,localport=6666]
+2026-04-22 00:29:51,747 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-22 00:29:59,462 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-22 00:30:34,087 INFO  com.hotel.server.network.ClientThread - Аперацыя: Увайсці ў акаўнт
+2026-04-22 00:30:34,163 ERROR com.hotel.server.network.ClientThread - Памылка падчас апрацоўкі запыту: Памылка падчас уваходу: Cannot construct instance of `com.hotel.common.dto.LoginRequest` (no Creators, like default constructor, exist): cannot deserialize from Object value (no delegate- or property-based Creator)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 2]
+java.io.PrintWriter@686b1142
+2026-04-22 00:30:54,892 ERROR com.hotel.server.network.ClientThread - Кліент адлучыўся: Socket[addr=/127.0.0.1,port=50162,localport=6666]
+2026-04-22 00:33:06,613 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-22 00:33:10,692 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-22 00:33:13,402 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-22 00:33:24,919 INFO  com.hotel.server.network.ClientThread - Аперацыя: Увайсці ў акаўнт
+2026-04-22 00:33:25,169 ERROR com.hotel.server.network.ClientThread - Памылка падчас апрацоўкі запыту: Памылка падчас уваходу: Cannot construct instance of `com.hotel.common.dto.LoginRequest` (no Creators, like default constructor, exist): cannot deserialize from Object value (no delegate- or property-based Creator)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 2]
+java.io.PrintWriter@2944a7db
+2026-04-22 00:33:42,952 ERROR com.hotel.client.network.ServerClient - Узнікла памылка падчас падлучэння: Connection refused: connect
+2026-04-22 00:33:46,422 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-22 00:34:05,996 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-22 00:34:09,681 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-22 00:34:33,528 INFO  com.hotel.server.network.ClientThread - Аперацыя: Увайсці ў акаўнт
+2026-04-22 00:34:33,623 ERROR com.hotel.server.network.ClientThread - Памылка падчас апрацоўкі запыту: Памылка падчас уваходу: Cannot construct instance of `com.hotel.common.dto.LoginRequest` (no Creators, like default constructor, exist): cannot deserialize from Object value (no delegate- or property-based Creator)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 2]
+java.io.PrintWriter@686b1142
+2026-04-22 00:34:49,050 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-22 00:34:52,057 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-22 00:35:04,296 INFO  com.hotel.server.network.ClientThread - Аперацыя: Увайсці ў акаўнт
+2026-04-22 00:35:04,453 ERROR com.hotel.server.network.ClientThread - Памылка падчас апрацоўкі запыту: Памылка падчас уваходу: Cannot construct instance of `com.hotel.common.dto.LoginRequest` (no Creators, like default constructor, exist): cannot deserialize from Object value (no delegate- or property-based Creator)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 2]
+java.io.PrintWriter@1794e447
+2026-04-22 00:37:52,382 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-22 00:37:56,632 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-22 00:38:06,231 INFO  com.hotel.server.network.ClientThread - Аперацыя: Увайсці ў акаўнт
+2026-04-22 00:38:24,998 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-22 00:38:27,197 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-22 00:38:37,341 INFO  com.hotel.server.network.ClientThread - Аперацыя: Увайсці ў акаўнт
