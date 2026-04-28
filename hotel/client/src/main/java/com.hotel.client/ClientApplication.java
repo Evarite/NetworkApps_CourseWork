@@ -14,8 +14,9 @@ public class ClientApplication {
         Menu menu = new Menu(serverClient);
         menu.start();
 
-        //Move to menu, I suppose
-        serverClient.sendRequest(new Request(Operation.DISCONNECT, null));
+        try {
+            serverClient.sendRequest(new Request(Operation.DISCONNECT, null));
+        } catch (Exception ignored) {}
         serverClient.disconnect();
     }
 }

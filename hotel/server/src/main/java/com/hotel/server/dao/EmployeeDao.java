@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeDao {
+
     public List<Employee> getAllEmployees() {
         List<Employee> employees = new ArrayList<>();
         String sql = "SELECT * FROM employee";
@@ -15,7 +16,7 @@ public class EmployeeDao {
         try (Connection conn = DatabaseManager.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
-            while(rs.next())
+            while (rs.next())
                 employees.add(readEmployee(rs));
 
             return employees;
@@ -27,7 +28,7 @@ public class EmployeeDao {
     public void hireEmployee(Employee employee) {
         String sql = "INSERT INTO employee VALUES (?, ?, ?, ?)";
         try (Connection conn = DatabaseManager.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, employee.getAccountId());
             stmt.setString(2, employee.getPosition().name().toLowerCase());
             stmt.setFloat(3, employee.getSalary());
@@ -42,9 +43,8 @@ public class EmployeeDao {
     public void fireEmployee(int accountId) {
         String sql = "DELETE FROM employee WHERE account_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, accountId);
-
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Памылка пры звальненні супрацоўніка", e);
@@ -54,13 +54,27 @@ public class EmployeeDao {
     public void changeRole(int accountId, Employee.Position newPosition) {
         String sql = "UPDATE employee SET position = ? WHERE account_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, newPosition.name().toLowerCase());
             stmt.setInt(2, accountId);
-
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Памылка пры змене пасады супрацоўніка", e);
+        }
+    }
+
+    public Employee.Position getPositionByAccountId(int accountId) {
+        String sql = "SELECT position FROM employee WHERE account_id = ?";
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, accountId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next())
+                    return Employee.Position.valueOf(rs.getString("position").toUpperCase());
+            }
+            return null;
+        } catch (Exception e) {
+            throw new RuntimeException("Памылка пры вызначэнні пасады", e);
         }
     }
 

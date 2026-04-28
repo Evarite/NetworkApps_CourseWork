@@ -5,9 +5,9 @@ import com.hotel.common.network.Request;
 import com.hotel.common.network.Response;
 
 import com.hotel.server.controllers.*;
-
 import com.hotel.server.exceptions.ResponseException;
 import org.apache.log4j.Logger;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -26,7 +26,7 @@ public class ClientThread implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Запушчаны паток для кліента: " + socket);
+        logger.info("Запушчаны паток для кліента: " + socket.getInetAddress());
 
         try (
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
@@ -35,27 +35,27 @@ public class ClientThread implements Runnable {
             boolean running = true;
             while (running) {
                 Request request = (Request) in.readObject();
-                logger.info("Аперацыя: " + request.getOperation());
+                logger.info("Аперацыя: " + request.getOperation() + " | Кліент: " + socket.getInetAddress());
 
                 Response response = processRequest(request);
 
                 out.writeObject(response);
                 out.flush();
 
-                if(request.getOperation() == Operation.DISCONNECT) {
-                    logger.info("Кліент адлучыўся");
+                if (request.getOperation() == Operation.DISCONNECT) {
+                    logger.info("Кліент адлучыўся: " + socket.getInetAddress());
                     running = false;
                 }
             }
-
+        } catch (EOFException e) {
+            logger.warn("Кліент закрыў злучэнне без DISCONNECT: " + socket.getInetAddress());
         } catch (Exception e) {
-            logger.error("Кліент адлучыўся: " + socket);
-            System.out.println("Кліент адлучыўся: " + socket);
+            logger.error("Памылка ў патоку кліента " + socket.getInetAddress() + ": " + e.getMessage());
         } finally {
             try {
                 socket.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Памылка пры закрыцці сокета: " + e.getMessage());
             }
         }
     }
@@ -65,6 +65,7 @@ public class ClientThread implements Runnable {
             return switch (request.getOperation()) {
                 case LOGIN -> accountController.login(request);
                 case REGISTER -> accountController.register(request);
+                case UPDATE_ACCOUNT -> accountController.updateAccount(request);
 
                 case ADD_ROOM -> roomController.addRoom(request);
                 case CLOSE_ROOM -> roomController.closeRoom(request);
@@ -80,29 +81,28 @@ public class ClientThread implements Runnable {
                 case GET_MY_RESERVATIONS -> reservationController.getMyReservations(request);
                 case GET_ALL_RESERVATIONS -> reservationController.getAllReservations(request);
                 case APPROVE_RESERVATION -> reservationController.approveReservation(request);
+                case GET_PENDING_RESERVATIONS -> reservationController.getPendingReservations(request);
+                case GET_APPROVED_RESERVATIONS -> reservationController.getApprovedReservations(request);
+                case GET_MY_RESERVATIONS_AFTER_NOW -> reservationController.getMyReservationsAfterNow(request);
 
                 case GET_ALL_EMPLOYEES -> employeeController.getAllEmployees(request);
                 case HIRE_EMPLOYEE -> employeeController.hireEmployee(request);
                 case FIRE_EMPLOYEE -> employeeController.fireEmployee(request);
                 case CHANGE_ROLE -> employeeController.changeRole(request);
 
-                case UPDATE_ACCOUNT -> new Response(true, "На распрацоўцы", null);
-                case GET_ALL_ACCOUNTS -> new Response(true, "На распрацоўцы", null);
-                case GET_ACCOUNT_BY_ID -> new Response(true, "На распрацоўцы", null);
-                case GET_ACCOUNT_BY_EMAIL -> new Response(true, "На распрацоўцы", null);
-
                 case GET_ALL_GUESTS -> guestController.getAllGuests(request);
                 case GET_ALL_GUESTS_WITH_RESERVATIONS -> guestController.getAllGuestsWithReservations(request);
 
-                case GET_MY_RESERVATIONS_AFTER_NOW -> reservationController.getMyReservationsAfterNow(request);
+                case DISCONNECT -> new Response(true, "Злучэнне завершана", null);
 
-                case DISCONNECT -> new Response(true, "На распрацоўцы", null);
-
-                default -> new Response(false, "Невядомая апэрацыя", null);
+                default -> new Response(false, "Невядомая аперацыя", null);
             };
         } catch (ResponseException e) {
-            logger.error("Памылка падчас апрацоўкі запыту: " + e.getMessage() + '\n' + e.getStack());
+            logger.error("ResponseException: " + e.getMessage());
             return new Response(false, e.getMessage(), null);
+        } catch (Exception e) {
+            logger.error("Неспадзяваная памылка: " + e.getMessage(), e);
+            return new Response(false, "Памылка сервера: " + e.getMessage(), null);
         }
     }
 }

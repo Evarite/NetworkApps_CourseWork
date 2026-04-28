@@ -2,12 +2,13 @@ package com.hotel.server.dao;
 
 import com.hotel.common.entities.Account;
 import com.hotel.server.config.DatabaseManager;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.Objects;
 
 public class AccountDao {
+
     public Account findByEmail(String email) {
         String sql = "SELECT * FROM account WHERE email = ?";
 
@@ -21,7 +22,7 @@ public class AccountDao {
             }
             return null;
         } catch (SQLException e) {
-            throw new RuntimeException("Памылка падчас пошука акаўнту па email", e);
+            throw new RuntimeException("Памылка падчас пошуку акаўнта па email", e);
         }
     }
 
@@ -30,8 +31,10 @@ public class AccountDao {
 
         if (account == null)
             return null;
-        if (Objects.equals(password, account.getPassword()))
+
+        if (!BCrypt.checkpw(password, account.getPassword()))
             return null;
+
         return account;
     }
 
@@ -52,10 +55,9 @@ public class AccountDao {
 
             try (ResultSet keys = stmt.getGeneratedKeys()) {
                 if (!keys.next())
-                    throw new RuntimeException("Не атрымалася атрымаць ID новага акаўнту");
+                    throw new RuntimeException("Не атрымалася атрымаць ID новага акаўнта");
 
                 int newId = keys.getInt(1);
-
                 return new Account(newId, email, firstName, lastName, password, birthDate);
             }
         } catch (SQLException e) {
@@ -65,7 +67,7 @@ public class AccountDao {
 
     public void updateAccount(int id, String newEmail, String newFirstName, String newLastName,
                               String newPassword) {
-        String sql = "UPDATE account SET email = ?, first_name = ?, last_name = ?, password = ?" +
+        String sql = "UPDATE account SET email = ?, first_name = ?, last_name = ?, password_hash = ? " +
                 "WHERE id = ?";
         try (Connection conn = DatabaseManager.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -75,10 +77,9 @@ public class AccountDao {
             stmt.setString(4, newPassword);
             stmt.setInt(5, id);
 
-            try (ResultSet rs = stmt.executeQuery()) {
-            }
+            stmt.executeUpdate();
         } catch (Exception e) {
-            throw new RuntimeException("Памылка падчас аднаўлення дадзеных акаўнта", e);
+            throw new RuntimeException("Памылка падчас абнаўлення дадзеных акаўнта", e);
         }
     }
 

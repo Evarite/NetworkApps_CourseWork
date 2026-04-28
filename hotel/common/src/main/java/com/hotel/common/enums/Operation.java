@@ -3,7 +3,6 @@ package com.hotel.common.enums;
 public enum Operation {
     LOGIN,
     REGISTER,
-
     DISCONNECT,
 
     UPDATE_ACCOUNT,
@@ -28,6 +27,8 @@ public enum Operation {
     GET_MY_RESERVATIONS,
     GET_ALL_RESERVATIONS,
     APPROVE_RESERVATION,
+    GET_PENDING_RESERVATIONS,
+    GET_APPROVED_RESERVATIONS,
 
     GET_ALL_EMPLOYEES,
     HIRE_EMPLOYEE,
@@ -36,37 +37,38 @@ public enum Operation {
 
     GET_MY_RESERVATIONS_AFTER_NOW;
 
-    //Remove later
     @Override
     public String toString() {
         return switch (this) {
             case LOGIN -> "Увайсці ў акаўнт";
             case REGISTER -> "Стварыць новы акаўнт";
-            case DISCONNECT -> "Выхад з праграмы";
+            case DISCONNECT -> "Выйсці з праграмы";
             case UPDATE_ACCOUNT -> "Рэдагаваць акаўнт";
-            case GET_ALL_ACCOUNTS -> "Праглядзець усе акаўнты";
+            case GET_ALL_ACCOUNTS -> "Прагледзець усе акаўнты";
             case GET_ACCOUNT_BY_ID -> "Знайсці акаўнт па ID";
             case GET_ACCOUNT_BY_EMAIL -> "Знайсці акаўнт па email";
-            case GET_ALL_ROOMS -> "Праглядзець усе пакоі";
-            case GET_AVAILABLE_ROOMS -> "Праглядзець даступныя пакоі";
-            case ADD_ROOM -> "Дадаць пакой";
-            case UPDATE_ROOM -> "Рэдагаваць пакой";
-            case DELETE_ROOM -> "Выдаліць пакой";
-            case CLOSE_ROOM -> "Зачыніць пакой на час тэхнічнага абслугоўвання";
-            case OPEN_ROOM -> "Адчыніць пакой";
-            case GET_ALL_GUESTS -> "Праглядзець усіх гасцей";
-            case GET_ALL_GUESTS_WITH_RESERVATIONS -> "Праглядзець усіх гасцей з браніраваннямі";
-            case CREATE_RESERVATION -> "Забраніраваць пакой";
+            case GET_ALL_ROOMS -> "Прагледзець усе нумары";
+            case GET_AVAILABLE_ROOMS -> "Прагледзець свабодныя нумары";
+            case ADD_ROOM -> "Дадаць нумар";
+            case UPDATE_ROOM -> "Рэдагаваць нумар";
+            case DELETE_ROOM -> "Выдаліць нумар";
+            case CLOSE_ROOM -> "Часова зачыніць нумар";
+            case OPEN_ROOM -> "Адчыніць нумар";
+            case GET_ALL_GUESTS -> "Прагледзець усіх гасцей";
+            case GET_ALL_GUESTS_WITH_RESERVATIONS -> "Прагледзець гасцей з браніраваннямі";
+            case CREATE_RESERVATION -> "Забраніраваць нумар";
             case CANCEL_RESERVATION -> "Скасаваць браніраванне";
-            case CHECK_OUT -> "Датэрмінова выселіцца";
-            case GET_MY_RESERVATIONS -> "Праглядзець мае браніраванні";
-            case GET_ALL_RESERVATIONS -> "Праглядзець усе браніраванні";
-            case APPROVE_RESERVATION -> "Усхваліць браніраванне";
-            case GET_ALL_EMPLOYEES -> "Праглядзець усіх супрацоўнікаў";
+            case CHECK_OUT -> "Выселіць госця";
+            case GET_MY_RESERVATIONS -> "Мае браніраванні";
+            case GET_ALL_RESERVATIONS -> "Прагледзець усе браніраванні";
+            case APPROVE_RESERVATION -> "Зацвердзіць браніраванне";
+            case GET_PENDING_RESERVATIONS -> "Браніраванні, якія чакаюць зацверджання";
+            case GET_APPROVED_RESERVATIONS -> "Зацверджаныя браніраванні";
+            case GET_ALL_EMPLOYEES -> "Прагледзець усіх супрацоўнікаў";
             case HIRE_EMPLOYEE -> "Уладкаваць супрацоўніка";
-            case FIRE_EMPLOYEE -> "Зволніць супрацоўніка";
+            case FIRE_EMPLOYEE -> "Звольніць супрацоўніка";
             case CHANGE_ROLE -> "Змяніць пасаду супрацоўніка";
-            case GET_MY_RESERVATIONS_AFTER_NOW -> "Праглядзець непачатыя браніраванні";
+            case GET_MY_RESERVATIONS_AFTER_NOW -> "Мае актыўныя браніраванні";
         };
     }
 }
