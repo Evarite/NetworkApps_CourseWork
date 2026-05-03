@@ -1,6 +1,7 @@
 package com.hotel.server.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.hotel.common.network.Request;
 import com.hotel.common.network.Response;
 import com.hotel.server.dao.GuestDao;
@@ -10,23 +11,23 @@ public class GuestController {
     private final GuestDao guestDao = new GuestDao();
     private final ObjectMapper mapper = new ObjectMapper();
 
+    public GuestController() { mapper.registerModule(new JavaTimeModule()); }
+
     public Response getAllGuests(Request request) {
         try {
             var guests = guestDao.getAllGuests();
-            String json = mapper.writeValueAsString(guests);
-            return new Response(true, "Атрымана гасцей: " + guests.size(), json);
+            return new Response(true, "OK", mapper.writeValueAsString(guests));
         } catch (Exception e) {
-            throw new ResponseException("Памылка падчас запыту: " + e.getMessage());
+            throw new ResponseException("Памылка: " + e.getMessage());
         }
     }
 
     public Response getAllGuestsWithReservations(Request request) {
         try {
             var guests = guestDao.getAllGuestsWithReservations();
-            String json = mapper.writeValueAsString(guests);
-            return new Response(true, "Атрымана гасцей: " + guests.size(), json);
+            return new Response(true, "OK", mapper.writeValueAsString(guests));
         } catch (Exception e) {
-            throw new ResponseException("Памылка падчас запыту: " + e.getMessage());
+            throw new ResponseException("Памылка: " + e.getMessage());
         }
     }
 }

@@ -172,3 +172,7 @@ java.io.PrintWriter@1794e447
 2026-04-28 09:36:30,152 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усіх гасцей | Кліент: /127.0.0.1
 2026-04-28 09:36:42,569 INFO  com.hotel.server.network.ClientThread - Аперацыя: Выйсці з праграмы | Кліент: /127.0.0.1
 2026-04-28 09:36:42,570 INFO  com.hotel.server.network.ClientThread - Кліент адлучыўся: /127.0.0.1
+2026-04-28 10:00:10,530 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-04-28 10:00:14,492 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-04-28 10:00:14,967 INFO  com.hotel.server.network.ClientThread - Запушчаны паток для кліента: /127.0.0.1
+2026-04-28 10:00:28,855 INFO  com.hotel.server.network.ClientThread - Аперацыя: Увайсці ў акаўнт | Кліент: /127.0.0.1

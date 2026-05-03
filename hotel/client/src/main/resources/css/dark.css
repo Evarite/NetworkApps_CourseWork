@@ -1,0 +1,52 @@
+/* ============================================================
+   HOTEL SYSTEM — DARK THEME OVERRIDES
+   Загружаецца ПАВЕРХ light.css. Перавызначае толькі named colors.
+   ============================================================ */
+.root {
+    hotel-bg:           #100e18;
+    hotel-surface:      #1a1726;
+    hotel-surface2:     #232034;
+    hotel-sidebar:      #0c0a14;
+    hotel-sidebar2:     #171526;
+    hotel-accent:       #e8b84b;
+    hotel-accent-hover: #f5cc6e;
+    hotel-accent-light: #2a2210;
+    hotel-text:         #ede8f5;
+    hotel-text-muted:   #7a748e;
+    hotel-border:       #2d2a3e;
+    hotel-success:      #34d399;
+    hotel-danger:       #f87171;
+    hotel-warning:      #fbbf24;
+    hotel-tag-pending:  #2d2410;
+    hotel-tag-approved: #0d2e1e;
+    hotel-tag-cancel:   #2e1212;
+    hotel-tag-checked:  #151830;
+}
+
+/* Dark mode: table rows */
+.hotel-table .table-row-cell:odd {
+    -fx-background-color: #1e1b2c;
+}
+
+/* Dark scrollbar */
+.hotel-scroll .scroll-bar:vertical .thumb,
+.hotel-scroll .scroll-bar:horizontal .thumb {
+    -fx-background-color: #3d3a52;
+    -fx-background-radius: 4;
+}
+
+.hotel-scroll .scroll-bar .track {
+    -fx-background-color: transparent;
+}
+
+/* Dark combo popup */
+.hotel-combo .combo-box-popup .list-view {
+    -fx-background-color: #1a1726;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 12, 0, 0, 4);
+}
+
+/* Dark date picker calendar */
+.date-picker-popup {
+    -fx-background-color: #1a1726;
+    -fx-border-color: #2d2a3e;
+}

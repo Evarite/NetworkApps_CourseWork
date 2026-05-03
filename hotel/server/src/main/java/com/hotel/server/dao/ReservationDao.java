@@ -10,148 +10,64 @@ import java.util.List;
 
 public class ReservationDao {
 
+    public Reservation getById(int id) {
+        String sql = "SELECT * FROM reservation WHERE id = ?";
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) return readReservation(rs);
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException("Памылка пры пошуку браніравання", e);
+        }
+    }
+
     public void createReservation(int guestId, int roomNumber, LocalDate reservationDate, int duration) {
         String sql = "INSERT INTO reservation(guest_id, room_number, reservation_date, duration, status) " +
                 "VALUES (?, ?, ?, ?, 'pending')";
-
         try (Connection conn = DatabaseManager.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, guestId);
             stmt.setInt(2, roomNumber);
             stmt.setDate(3, Date.valueOf(reservationDate));
             stmt.setInt(4, duration);
-
             stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Памылка падчас стварэння браніравання", e);
+            throw new RuntimeException("Памылка пры стварэнні браніравання", e);
         }
     }
 
     public void cancelReservation(int id) {
-        String checkSql = "SELECT status FROM reservation WHERE id = ?";
-        try (Connection conn = DatabaseManager.getConnection();
-             PreparedStatement check = conn.prepareStatement(checkSql)) {
-            check.setInt(1, id);
-            try (ResultSet rs = check.executeQuery()) {
-                if (!rs.next())
-                    throw new RuntimeException("Браніраванне з ID " + id + " не знойдзена");
-                String status = rs.getString("status");
-                if ("checked_out".equals(status))
-                    throw new RuntimeException("Нельга скасаваць браніраванне: госць ужо выселены");
-                if ("cancelled".equals(status))
-                    throw new RuntimeException("Браніраванне ўжо скасавана");
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Памылка пры праверцы браніравання", e);
-        }
-
-        String sql = "UPDATE reservation SET status = 'cancelled' WHERE id = ?";
-        try (Connection conn = DatabaseManager.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Памылка падчас скасавання браніравання", e);
-        }
+        checkStatus(id, false, "cancelled", "checked_out");
+        update(id, "cancelled");
     }
 
     public void approveReservation(int id) {
-        String checkSql = "SELECT status, room_number FROM reservation WHERE id = ?";
-        try (Connection conn = DatabaseManager.getConnection();
-             PreparedStatement check = conn.prepareStatement(checkSql)) {
-            check.setInt(1, id);
-            try (ResultSet rs = check.executeQuery()) {
-                if (!rs.next())
-                    throw new RuntimeException("Браніраванне з ID " + id + " не знойдзена");
-                if (!"pending".equals(rs.getString("status")))
-                    throw new RuntimeException("Браніраванне ўжо апрацавана");
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Памылка пры праверцы браніравання", e);
-        }
+        checkStatus(id, true, "pending");
 
-        String sql = "UPDATE reservation SET status = 'approved' WHERE id = ?";
-        try (Connection conn = DatabaseManager.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Памылка падчас зацвярджэння браніравання", e);
-        }
-
-        String roomSql = "UPDATE room r " +
-                "JOIN reservation res ON r.number = res.room_number " +
+        update(id, "approved");
+        String roomSql = "UPDATE room r JOIN reservation res ON r.number = res.room_number " +
                 "SET r.status = 'occupied' WHERE res.id = ?";
-        try (Connection conn = DatabaseManager.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(roomSql)) {
-            stmt.setInt(1, id);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Памылка пры змене статусу пакоя", e);
-        }
+        exec(roomSql, id);
     }
 
-    public void checkOut(int reservationId) {
-        String checkSql = "SELECT status, room_number FROM reservation WHERE id = ?";
-        int roomNumber;
-        try (Connection conn = DatabaseManager.getConnection();
-             PreparedStatement check = conn.prepareStatement(checkSql)) {
-            check.setInt(1, reservationId);
-            try (ResultSet rs = check.executeQuery()) {
-                if (!rs.next())
-                    throw new RuntimeException("Браніраванне з ID " + reservationId + " не знойдзена");
-                String status = rs.getString("status");
-                if (!"approved".equals(status))
-                    throw new RuntimeException("Выселіць можна толькі зацверджаныя браніраванні (статус: " + status + ")");
-                roomNumber = rs.getInt("room_number");
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Памылка пры праверцы браніравання", e);
-        }
-
-        String sql = "UPDATE reservation SET status = 'checked_out' WHERE id = ?";
-        try (Connection conn = DatabaseManager.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, reservationId);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Памылка падчас выселення", e);
-        }
-
-        String roomSql = "UPDATE room SET status = 'available' WHERE number = ?";
-        try (Connection conn = DatabaseManager.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(roomSql)) {
-            stmt.setInt(1, roomNumber);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Памылка пры змене статусу пакоя", e);
-        }
+    public void checkOut(int id) {
+        checkStatus(id, true, "approved");
+        Reservation r = getById(id);
+        update(id, "checked_out");
+        exec("UPDATE room SET status = 'available' WHERE number = ?", r.getRoomNumber());
     }
 
-    public List<Reservation> getPendingReservations() {
-        String sql = "SELECT * FROM reservation WHERE status = 'pending'";
-        try (Connection conn = DatabaseManager.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-            List<Reservation> list = new ArrayList<>();
-            while (rs.next()) list.add(readReservation(rs));
-            return list;
-        } catch (SQLException e) {
-            throw new RuntimeException("Памылка падчас чытання браніраванняў", e);
-        }
+    public List<Reservation> getPendingReservations()  {
+        return query("WHERE status='pending'");
     }
-
     public List<Reservation> getApprovedReservations() {
-        String sql = "SELECT * FROM reservation WHERE status = 'approved'";
-        try (Connection conn = DatabaseManager.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-            List<Reservation> list = new ArrayList<>();
-            while (rs.next()) list.add(readReservation(rs));
-            return list;
-        } catch (SQLException e) {
-            throw new RuntimeException("Памылка падчас чытання браніраванняў", e);
-        }
+        return query("WHERE status='approved'");
+    }
+    public List<Reservation> getAllReservations() {
+        return query("");
     }
 
     public List<Reservation> getMyReservations(int accountId) {
@@ -159,55 +75,81 @@ public class ReservationDao {
         try (Connection conn = DatabaseManager.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, accountId);
-            List<Reservation> reservations = new ArrayList<>();
+            List<Reservation> list = new ArrayList<>();
             try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) reservations.add(readReservation(rs));
+                while (rs.next()) list.add(readReservation(rs));
             }
-            return reservations;
+            return list;
         } catch (SQLException e) {
-            throw new RuntimeException("Памылка падчас чытання браніраванняў", e);
-        }
-    }
-
-    public List<Reservation> getAllReservations() {
-        String sql = "SELECT * FROM reservation";
-        try (Connection conn = DatabaseManager.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-            List<Reservation> reservations = new ArrayList<>();
-            while (rs.next()) reservations.add(readReservation(rs));
-            return reservations;
-        } catch (SQLException e) {
-            throw new RuntimeException("Памылка падчас чытання браніраванняў", e);
+            throw new RuntimeException("Памылка пры чытанні", e);
         }
     }
 
     public List<Reservation> getMyReservationsAfterNow(int accountId) {
         String sql = "SELECT * FROM reservation WHERE guest_id = ? AND reservation_date >= CURRENT_DATE " +
-                "AND status NOT IN ('cancelled', 'checked_out')";
+                "AND status NOT IN ('cancelled','checked_out')";
         try (Connection conn = DatabaseManager.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, accountId);
-            List<Reservation> reservations = new ArrayList<>();
+            List<Reservation> list = new ArrayList<>();
             try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) reservations.add(readReservation(rs));
+                while (rs.next()) list.add(readReservation(rs));
             }
-            return reservations;
+            return list;
         } catch (Exception e) {
-            throw new RuntimeException("Памылка падчас чытання браніраванняў", e);
+            throw new RuntimeException("Памылка пры чытанні", e);
         }
     }
 
+    //helpers ──────────────────────────────────────────────────────────────
+
+    private List<Reservation> query(String where) {
+        String sql = "SELECT * FROM reservation " + where;
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            List<Reservation> list = new ArrayList<>();
+            while (rs.next()) list.add(readReservation(rs));
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException("Памылка пры чытанні браніраванняў", e);
+        }
+    }
+
+    private void update(int id, String status) {
+        exec("UPDATE reservation SET status = '" + status + "' WHERE id = ?", id);
+    }
+
+    private void exec(String sql, int param) {
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, param);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Памылка пры абнаўленні", e);
+        }
+    }
+
+    private void checkStatus(int id, boolean mustBe, String... statuses) {
+        Reservation r = getById(id);
+        if (r == null) throw new RuntimeException("Браніраванне #" + id + " не знойдзена");
+        String current = r.getStatus().name().toLowerCase();
+        boolean found = false;
+        for (String s : statuses) if (s.equals(current)) { found = true; break; }
+        if (mustBe && !found)
+            throw new RuntimeException("Непадыходны статус браніравання: " + current);
+        if (!mustBe && found)
+            throw new RuntimeException("Нельга выканаць аперацыю для статусу: " + current);
+    }
+
     private Reservation readReservation(ResultSet rs) throws SQLException {
-        String statusStr = rs.getString("status");
-        Reservation.Status status = Reservation.Status.valueOf(statusStr.toUpperCase());
         return new Reservation(
                 rs.getInt("id"),
                 rs.getInt("guest_id"),
                 rs.getInt("room_number"),
                 rs.getDate("reservation_date").toLocalDate(),
                 rs.getInt("duration"),
-                status
+                Reservation.Status.valueOf(rs.getString("status").toUpperCase())
         );
     }
 }

@@ -1,22 +1,28 @@
 package com.hotel.client;
 
 import com.hotel.client.network.ServerClient;
-import com.hotel.client.ui.Menu;
-import com.hotel.common.enums.Operation;
-import com.hotel.common.network.Request;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 
-public class ClientApplication {
+public class ClientApplication extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+        // Падлучэнне да сервера
+        ServerClient.getInstance().connect();
+
+        SceneManager.getInstance().init(primaryStage);
+        SceneManager.getInstance().showLogin();
+
+        primaryStage.setOnCloseRequest(e -> {
+            try { ServerClient.getInstance().disconnect(); } catch (Exception ignored) {}
+            Platform.exit();
+            System.exit(0);
+        });
+    }
 
     public static void main(String[] args) {
-        ServerClient serverClient = ServerClient.getInstance();
-        serverClient.connect();
-
-        Menu menu = new Menu(serverClient);
-        menu.start();
-
-        try {
-            serverClient.sendRequest(new Request(Operation.DISCONNECT, null));
-        } catch (Exception ignored) {}
-        serverClient.disconnect();
+        launch(args);
     }
 }

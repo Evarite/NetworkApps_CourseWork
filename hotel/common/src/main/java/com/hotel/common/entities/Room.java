@@ -2,48 +2,11 @@ package com.hotel.common.entities;
 
 import java.io.Serializable;
 
-public class Room implements Serializable{
-    public enum Type {
-        STANDARD,
-        SUPERIOR,
-        JUNIOR_SUITE,
-        SUITE,
-        APARTMENTS,
-        PRESIDENT
-    }
-    public enum Capacity {
-        SINGLE,
-        DOUBLE,
-        TWIN,
-        TRIPLE,
-        FAMILY
-    }
-    public enum Status {
-        AVAILABLE,
-        OCCUPIED,
-        MAINTENANCE
-    }
+public class Room implements Serializable {
 
-    public Room() {
-        number = 0;
-        floor = 0;
-        type = null;
-        capacity = null;
-        description = null;
-        status = null;
-        price = 0;
-    }
-
-    public Room(int number, int floor, Type type, Capacity capacity, String description,
-                Status status, float price) {
-        this.number = number;
-        this.floor = floor;
-        this.type = type;
-        this.capacity = capacity;
-        this.description = description;
-        this.status = status;
-        this.price = price;
-    }
+    public enum Type   { STANDARD, SUPERIOR, JUNIOR_SUITE, SUITE, APARTMENTS, PRESIDENT }
+    public enum Capacity { SINGLE, DOUBLE, TWIN, TRIPLE, FAMILY }
+    public enum Status { AVAILABLE, OCCUPIED, MAINTENANCE }
 
     private int number;
     private int floor;
@@ -53,46 +16,32 @@ public class Room implements Serializable{
     private Status status;
     private float price;
 
-    public int getNumber() {
-        return number;
-    }
-    public int getFloor() {
-        return floor;
-    }
-    public Type getType() {
-        return type;
-    }
-    public Capacity getCapacity() {
-        return capacity;
-    }
-    public String getDescription() {
-        return description;
-    }
-    public Status getStatus() {
-        return status;
-    }
-    public float getPrice() {
-        return price;
-    }
+    public Room() {}
 
-    public void setType(Type type) {
+    public Room(int number, int floor, Type type, Capacity capacity,
+                String description, Status status, float price) {
+        this.number = number;
+        this.floor = floor;
         this.type = type;
-    }
-    public void setCapacity(Capacity capacity) {
         this.capacity = capacity;
-    }
-    public void setDescription(String description) {
         this.description = description;
-    }
-    public void setStatus(Status status) {
         this.status = status;
-    }
-    public void setPrice(float price) {
         this.price = price;
     }
 
-    @Override
-    public String toString() {
-        return String.format("%d\t%d\t%s", number, floor, description);
-    }
+    public int getNumber()          { return number; }
+    public int getFloor()           { return floor; }
+    public Type getType()           { return type; }
+    public Capacity getCapacity()   { return capacity; }
+    public String getDescription()  { return description; }
+    public Status getStatus()       { return status; }
+    public float getPrice()         { return price; }
+
+    public void setNumber(int number)           { this.number = number; }
+    public void setFloor(int floor)             { this.floor = floor; }
+    public void setType(Type type)              { this.type = type; }
+    public void setCapacity(Capacity capacity)  { this.capacity = capacity; }
+    public void setDescription(String d)        { this.description = d; }
+    public void setStatus(Status status)        { this.status = status; }
+    public void setPrice(float price)           { this.price = price; }
 }
