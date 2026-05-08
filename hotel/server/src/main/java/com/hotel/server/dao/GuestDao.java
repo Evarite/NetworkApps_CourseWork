@@ -25,7 +25,8 @@ public class GuestDao {
 
     public void ensureGuestExists(int accountId) {
         if (findByAccountId(accountId) != null) return;
-        String sql = "INSERT IGNORE INTO guest(account_id, rating, reservations_count) VALUES (?, 0, 0)";
+        String sql = "INSERT IGNORE INTO guest(account_id, rating, reservations_amount, ratings_amount) " +
+                "VALUES (?, 0, 0, 0)";
         try (Connection conn = DatabaseManager.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, accountId);
@@ -35,17 +36,14 @@ public class GuestDao {
         }
     }
 
-    /**
-     * Дадае новую адзнаку да рэйтынгу госця.
-     * Сярэдні рэйтынг = rating / reservations_count.
-     */
     public void addRating(int accountId, int stars) {
         if (stars < 1 || stars > 5)
             throw new RuntimeException("Адзнака павінна быць ад 1 да 5");
 
         ensureGuestExists(accountId);
 
-        String sql = "UPDATE guest SET rating = rating + ?, reservations_count = reservations_count + 1 " +
+        String sql = "UPDATE guest " +
+                "SET rating = rating + ?, ratings_amount = ratings_amount + 1 " +
                 "WHERE account_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -59,14 +57,28 @@ public class GuestDao {
         }
     }
 
+    public void incrementReservations(int accountId) {
+        ensureGuestExists(accountId);
+        String sql = "UPDATE guest SET reservations_amount = reservations_amount + 1 WHERE account_id = ?";
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, accountId);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Памылка пры абнаўленні лічыльніка браніраванняў", e);
+        }
+    }
+
     public List<Guest> getAllGuests() {
         return query("SELECT * FROM guest");
     }
 
     public List<Guest> getAllGuestsWithReservations() {
         String sql = "SELECT g.* FROM guest g " +
-                "WHERE EXISTS (SELECT 1 FROM reservation r WHERE r.guest_id = g.account_id " +
-                "AND r.status NOT IN ('cancelled'))";
+                "WHERE EXISTS (" +
+                "  SELECT 1 FROM reservation r " +
+                "  WHERE r.guest_id = g.account_id AND r.status NOT IN ('cancelled')" +
+                ")";
         return query(sql);
     }
 

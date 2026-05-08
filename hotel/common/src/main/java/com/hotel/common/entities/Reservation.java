@@ -6,10 +6,10 @@ import java.time.LocalDate;
 public class Reservation implements Serializable {
 
     public enum Status {
-        PENDING,      // Чакае зацвярджэння парцье
-        APPROVED,     // Зацверджана, нумар занят
-        CANCELLED,    // Скасавана
-        CHECKED_OUT   // Выселены
+        PENDING,
+        APPROVED,
+        CANCELLED,
+        CHECKED_OUT
     }
 
     private final int id;
@@ -34,15 +34,43 @@ public class Reservation implements Serializable {
         this.status = status;
     }
 
-    public int getId() { return id; }
-    public int getGuestId() { return guestId; }
-    public int getRoomNumber() { return roomNumber; }
-    public LocalDate getReservationDate() { return reservationDate; }
-    public int getDuration() { return duration; }
-    public Status getStatus() { return status; }
+    public int getId() {
+        return id;
+    }
 
-    public void setRoomNumber(int roomNumber) { this.roomNumber = roomNumber; }
-    public void setReservationDate(LocalDate reservationDate) { this.reservationDate = reservationDate; }
-    public void setDuration(int duration) { this.duration = duration; }
-    public void setStatus(Status status) { this.status = status; }
+    public int getGuestId() {
+        return guestId;
+    }
+
+    public int getRoomNumber() {
+        return roomNumber;
+    }
+
+    public LocalDate getReservationDate() {
+        return reservationDate;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setRoomNumber(int roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    public void setReservationDate(LocalDate reservationDate) {
+        this.reservationDate = reservationDate;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 }

@@ -15,11 +15,10 @@ public class ServerApplication {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("server");
         int port = Integer.parseInt(resourceBundle.getString("SERVER_PORT"));
 
-        try(ServerSocket serverSocket = new ServerSocket(port))
-        {
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
             logger.info("Сервер запушчаны на порце: " + port);
 
-            while(true) {
+            while (true) {
                 Socket clientSocket = serverSocket.accept();
                 logger.info("Кліент падлучыўся: " + clientSocket.getInetAddress());
 

@@ -81,12 +81,27 @@ public class AccountController {
         private String newLastName;
         private String newPassword;
 
-        public UpdateAccountRequest() {}
+        public UpdateAccountRequest() {
+        }
 
-        public int getAccountId() { return accountId; }
-        public String getNewEmail() { return newEmail; }
-        public String getNewFirstName() { return newFirstName; }
-        public String getNewLastName() { return newLastName; }
-        public String getNewPassword() { return newPassword; }
+        public int getAccountId() {
+            return accountId;
+        }
+
+        public String getNewEmail() {
+            return newEmail;
+        }
+
+        public String getNewFirstName() {
+            return newFirstName;
+        }
+
+        public String getNewLastName() {
+            return newLastName;
+        }
+
+        public String getNewPassword() {
+            return newPassword;
+        }
     }
 }

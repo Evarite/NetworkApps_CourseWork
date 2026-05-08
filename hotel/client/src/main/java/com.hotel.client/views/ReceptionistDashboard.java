@@ -62,8 +62,6 @@ public class ReceptionistDashboard extends ViewBase {
         return sidebar;
     }
 
-    // ── Views ─────────────────────────────────────────────────────────────
-
     private VBox pendingView() {
         VBox box = contentBox();
         TableView<Reservation> table = TableHelper.reservationTable();
@@ -143,17 +141,12 @@ public class ReceptionistDashboard extends ViewBase {
 
     private VBox guestsView() {
         VBox box = contentBox();
-        // Просты спіс гасцей як тэкст (структура Guest: accountId, rating, count)
-        TextArea area = new TextArea();
-        area.setEditable(false);
-        area.setPrefHeight(460);
-        area.setStyle("-fx-font-family: monospace; -fx-font-size: 13px;");
-
+        TableView<com.hotel.common.entities.Guest> table = TableHelper.guestTable();
+        table.setPrefHeight(480);
         Label msg = errorLabel();
-        Button refresh = refreshBtn(() -> loadGuests(area, msg));
-
-        box.getChildren().add(card("Госці гатэля", new HBox(8, refresh), area, msg));
-        loadGuests(area, msg);
+        Button refresh = refreshBtn(() -> loadGuests(table, msg));
+        box.getChildren().add(card("Госці гатэля", new HBox(8, refresh), table, msg));
+        loadGuests(table, msg);
         return box;
     }
 
@@ -189,8 +182,6 @@ public class ReceptionistDashboard extends ViewBase {
         return box;
     }
 
-    // ── Loaders ───────────────────────────────────────────────────────────
-
     private void loadPending(TableView<Reservation> table, Label msg) {
         loadReservations(table, msg, Operation.GET_PENDING_RESERVATIONS);
     }
@@ -218,22 +209,13 @@ public class ReceptionistDashboard extends ViewBase {
         } catch (Exception ex) { showError(msg, ex.getMessage()); }
     }
 
-    private void loadGuests(TextArea area, Label msg) {
+    private void loadGuests(TableView<com.hotel.common.entities.Guest> table, Label msg) {
         try {
             Response resp = send(new Request(Operation.GET_ALL_GUESTS, null));
             if (resp != null && resp.isSuccess()) {
                 var list = mapper.readValue(resp.getData(),
                         new TypeReference<List<com.hotel.common.entities.Guest>>() {});
-                StringBuilder sb = new StringBuilder();
-                sb.append(String.format("%-10s %-20s %-15s%n", "ID акаўнта", "Сярэдні рэйтынг", "Кол-сць бран."));
-                sb.append("─".repeat(48)).append("\n");
-                for (var g : list) {
-                    sb.append(String.format("%-10d %-20s %-15d%n",
-                            g.getAccountId(),
-                            String.format("%.1f ★ (%d адзн.)", g.getAverageRating(), g.getReservationsCount()),
-                            g.getReservationsCount()));
-                }
-                area.setText(sb.toString());
+                table.setItems(FXCollections.observableArrayList(list));
                 clearMsg(msg);
             } else showError(msg, resp != null ? resp.getMessage() : "Памылка");
         } catch (Exception ex) { showError(msg, ex.getMessage()); }

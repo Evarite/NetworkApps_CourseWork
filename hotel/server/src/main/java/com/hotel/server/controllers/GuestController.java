@@ -11,7 +11,9 @@ public class GuestController {
     private final GuestDao guestDao = new GuestDao();
     private final ObjectMapper mapper = new ObjectMapper();
 
-    public GuestController() { mapper.registerModule(new JavaTimeModule()); }
+    public GuestController() {
+        mapper.registerModule(new JavaTimeModule());
+    }
 
     public Response getAllGuests(Request request) {
         try {

@@ -9,7 +9,8 @@ public class LoginResponse implements Serializable {
     private Account account;
     private Employee.Position position;
 
-    public LoginResponse() {}
+    public LoginResponse() {
+    }
 
     public LoginResponse(Account account, Employee.Position position) {
         this.account = account;

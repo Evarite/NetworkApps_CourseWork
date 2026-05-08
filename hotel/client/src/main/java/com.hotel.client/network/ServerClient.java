@@ -2,64 +2,75 @@ package com.hotel.client.network;
 
 import com.hotel.common.network.Request;
 import com.hotel.common.network.Response;
+import org.apache.log4j.Logger;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ResourceBundle;
 
-/**
- * Сінглтон для злучэння з серверам.
- * Замяняе стары ServerClient.java з поўным апрацоўваннем выключэнняў.
- */
 public class ServerClient {
 
-    private static final ServerClient INSTANCE = new ServerClient();
-
-    private static final String HOST = "localhost";
-    private static final int    PORT = 8080;
-
-    private Socket           socket;
+    private Socket socket;
     private ObjectOutputStream out;
-    private ObjectInputStream  in;
+    private ObjectInputStream in;
 
-    private ServerClient() {}
+    private final Logger logger = Logger.getLogger(ServerClient.class);
 
-    public static ServerClient getInstance() { return INSTANCE; }
+    private static ServerClient instance;
+
+    private ServerClient() {
+    }
+
+    public static ServerClient getInstance() {
+        if (instance == null)
+            instance = new ServerClient();
+        return instance;
+    }
 
     public void connect() {
         try {
-            socket = new Socket(HOST, PORT);
-            out    = new ObjectOutputStream(socket.getOutputStream());
-            in     = new ObjectInputStream(socket.getInputStream());
-        } catch (IOException e) {
-            System.err.println("Не ўдалося злучыцца з серверам: " + e.getMessage());
-            // Не кідаем выключэнне — дазваляем GUI запусціцца,
-            // памылка з'явіцца пры першым запыце
+            ResourceBundle rb = ResourceBundle.getBundle("server");
+            String host = rb.getString("SERVER_IP");
+            int port = Integer.parseInt(rb.getString("SERVER_PORT"));
+
+            socket = new Socket(host, port);
+            out = new ObjectOutputStream(socket.getOutputStream());
+            in = new ObjectInputStream(socket.getInputStream());
+
+            logger.info("Злучэнне з серверам " + host + ":" + port + " паспяховае");
+        } catch (Exception e) {
+            logger.error("Не ўдалося злучыцца з серверам: " + e.getMessage());
         }
     }
 
     public Response sendRequest(Request request) {
         if (socket == null || socket.isClosed() || !socket.isConnected()) {
-            // Паспрабуем перазлучыцца
-            try { connect(); } catch (Exception ignored) {}
+            connect();
         }
-        if (socket == null) {
-            return new Response(false, "Немагчыма злучыцца з серверам", null);
+
+        if (out == null || in == null) {
+            return new Response(false, "Немагчыма злучыцца з серверам. Праверце, ці запушчаны сервер.", null);
         }
+
         try {
             out.writeObject(request);
             out.flush();
-            out.reset(); // прадухіляе кэшаванне аб'ектаў
+            out.reset();
             return (Response) in.readObject();
         } catch (Exception e) {
+            logger.error("Памылка падчас адпраўкі запыту: " + e.getMessage());
             return new Response(false, "Памылка сувязі: " + e.getMessage(), null);
         }
     }
 
     public void disconnect() {
         try {
-            if (out    != null) out.close();
-            if (in     != null) in.close();
+            if (out != null) out.close();
+            if (in != null) in.close();
             if (socket != null) socket.close();
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+        }
     }
 }

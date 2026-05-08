@@ -10,8 +10,8 @@ import com.hotel.server.services.RoomService;
 
 public class RoomController {
 
-    private final RoomService  roomService = new RoomService();
-    private final ObjectMapper mapper      = new ObjectMapper();
+    private final RoomService roomService = new RoomService();
+    private final ObjectMapper mapper = new ObjectMapper();
 
     public RoomController() {
         mapper.registerModule(new JavaTimeModule());

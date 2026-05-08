@@ -12,6 +12,7 @@ import com.hotel.server.exceptions.ResponseException;
 import com.hotel.server.services.ReservationService;
 
 public class ReservationController {
+
     private final ReservationService reservationService = new ReservationService();
     private final ReservationDao reservationDao = new ReservationDao();
     private final GuestDao guestDao = new GuestDao();
@@ -24,10 +25,15 @@ public class ReservationController {
     public Response createReservation(Request request) {
         try {
             ReservationRequest req = mapper.readValue(request.getData(), ReservationRequest.class);
+
             guestDao.ensureGuestExists(req.getGuestId());
+
             reservationService.createReservation(
                     req.getGuestId(), req.getRoomNumber(),
                     req.getReservationDate(), req.getDuration());
+
+            guestDao.incrementReservations(req.getGuestId());
+
             return new Response(true, "Браніраванне создана. Чакаецца пацверджанне.", null);
         } catch (Exception e) {
             throw new ResponseException("Памылка: " + e.getMessage());
@@ -54,11 +60,6 @@ public class ReservationController {
         }
     }
 
-    /**
-     * Выпраўлена: checkOut прымае CheckOutRequest (ID + рэйтынг 1-5).
-     * 1) Змяняе статус браніравання на checked_out, пакой вяртаецца ў available
-     * 2) Дадае адзнаку да рэйтынгу госця
-     */
     public Response checkOut(Request request) {
         try {
             CheckOutRequest req = mapper.readValue(request.getData(), CheckOutRequest.class);
@@ -66,18 +67,17 @@ public class ReservationController {
             if (req.getRating() < 1 || req.getRating() > 5)
                 throw new RuntimeException("Адзнака павінна быць ад 1 да 5");
 
-            // Атрымліваем guestId перад выселеннем
             var reservation = reservationDao.getById(req.getReservationId());
             if (reservation == null)
                 throw new RuntimeException("Браніраванне не знойдзена");
 
-            // 1. Выселіць
+            // 1. Выселіць (змяняе статус бран. + статус пакоя)
             reservationService.checkOut(req.getReservationId());
 
-            // 2. Дадаць адзнаку
+            // 2. Дадаць адзнаку (rating += stars, ratings_amount++)
             guestDao.addRating(reservation.getGuestId(), req.getRating());
 
-            return new Response(true, "Госць паспяхова выселены. Адзнака: "
+            return new Response(true, "Госць паспяхова выселены. Адзнака "
                     + req.getRating() + "/5 дададзена.", null);
         } catch (Exception e) {
             throw new ResponseException("Памылка: " + e.getMessage());

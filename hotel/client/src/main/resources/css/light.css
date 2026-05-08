@@ -1,17 +1,9 @@
-/* ============================================================
-   HOTEL SYSTEM — BASE STYLES + LIGHT THEME
-   Поўны CSS: цвета + усе кампаненты.
-   Пры пераключэнні на цёмную тэму — light.css выдаляецца,
-   загружаецца dark.css (мае іншыя значэнні named colors).
-   ============================================================ */
-
-/* ── Named colors (light palette) ── */
 .root {
     hotel-bg:           #f4f1ea;
     hotel-surface:      #ffffff;
     hotel-surface2:     #ede9df;
-    hotel-sidebar:      #13111c;
-    hotel-sidebar2:     #1e1b2e;
+    hotel-sidebar:      #faf7eb;
+    hotel-sidebar2:     #8f6d24;
     hotel-accent:       #b8860b;
     hotel-accent-hover: #9a6f09;
     hotel-accent-light: #f5e6b8;
@@ -30,12 +22,10 @@
     -fx-background-color: hotel-bg;
 }
 
-/* ── Root scene ── */
 .hotel-scene {
     -fx-background-color: hotel-bg;
 }
 
-/* ── Sidebar ── */
 .hotel-sidebar {
     -fx-background-color: hotel-sidebar;
     -fx-min-width: 220px;
@@ -47,7 +37,7 @@
 .hotel-sidebar-header {
     -fx-background-color: hotel-sidebar;
     -fx-padding: 28 20 20 20;
-    -fx-border-color: transparent transparent #2a2840 transparent;
+    -fx-border-color: transparent transparent rgba(255,255,255,0.1) transparent;
     -fx-border-width: 0 0 1 0;
 }
 
@@ -58,13 +48,13 @@
 }
 
 .hotel-logo-sub {
-    -fx-text-fill: #7a7590;
+    -fx-text-fill: rgba(0,0,0,0.55);
     -fx-font-size: 11px;
     -fx-padding: 2 0 0 0;
 }
 
 .hotel-sidebar-section {
-    -fx-text-fill: #4a4760;
+    -fx-text-fill: rgba(0,0,0,0.45);
     -fx-font-size: 10px;
     -fx-font-weight: bold;
     -fx-padding: 18 20 6 20;
@@ -72,7 +62,7 @@
 
 .hotel-nav-btn {
     -fx-background-color: transparent;
-    -fx-text-fill: #9b98b5;
+    -fx-text-fill: rgba(0,0,0,0.75);
     -fx-font-size: 13px;
     -fx-padding: 9 20 9 20;
     -fx-alignment: center-left;
@@ -85,19 +75,18 @@
 }
 
 .hotel-nav-btn:hover {
-    -fx-background-color: #1e1b2e;
-    -fx-text-fill: #d4d0ea;
+    -fx-background-color: rgba(0,0,0,0.08);
+    -fx-text-fill: rgba(0,0,0,0.95);
 }
 
 .hotel-nav-btn.active {
-    -fx-background-color: #2a2640;
-    -fx-text-fill: #e8b84b;
+    -fx-background-color: rgba(0,0,0,0.12);
+    -fx-text-fill: #7a4f00;
     -fx-border-color: #e8b84b transparent transparent transparent;
     -fx-border-width: 0 0 0 3;
     -fx-padding: 9 20 9 17;
 }
 
-/* ── Header bar ── */
 .hotel-header {
     -fx-background-color: hotel-surface;
     -fx-padding: 0 24 0 24;
@@ -122,7 +111,6 @@
     -fx-background-radius: 20;
 }
 
-/* ── Theme toggle button ── */
 .hotel-theme-btn {
     -fx-background-color: hotel-surface2;
     -fx-text-fill: hotel-text-muted;
@@ -142,7 +130,6 @@
     -fx-background-color: hotel-border;
 }
 
-/* ── Logout button ── */
 .hotel-logout-btn {
     -fx-background-color: transparent;
     -fx-text-fill: hotel-text-muted;
@@ -160,13 +147,11 @@
     -fx-border-color: hotel-danger;
 }
 
-/* ── Content area ── */
 .hotel-content {
     -fx-background-color: hotel-bg;
     -fx-padding: 28;
 }
 
-/* ── Cards ── */
 .hotel-card {
     -fx-background-color: hotel-surface;
     -fx-background-radius: 12;
@@ -184,7 +169,6 @@
     -fx-padding: 0 0 14 0;
 }
 
-/* ── TableView ── */
 .hotel-table {
     -fx-background-color: transparent;
     -fx-border-color: hotel-border;
@@ -208,6 +192,7 @@
     -fx-text-fill: hotel-text-muted;
     -fx-font-size: 11px;
     -fx-font-weight: bold;
+    -fx-alignment: center;
 }
 
 .hotel-table .table-row-cell {
@@ -241,13 +226,11 @@
     -fx-border-color: transparent;
 }
 
-/* ── Toolbar above table ── */
 .hotel-toolbar {
     -fx-padding: 0 0 14 0;
     -fx-spacing: 8;
 }
 
-/* ── Buttons ── */
 .hotel-btn-primary {
     -fx-background-color: hotel-accent;
     -fx-text-fill: white;
@@ -316,7 +299,6 @@
     -fx-background-color: #1a5c3a;
 }
 
-/* ── Form fields ── */
 .hotel-field-label {
     -fx-text-fill: hotel-text-muted;
     -fx-font-size: 12px;
@@ -394,7 +376,6 @@
     -fx-padding: 9 14;
 }
 
-/* ── Error label ── */
 .hotel-error-label {
     -fx-text-fill: hotel-danger;
     -fx-font-size: 12px;
@@ -407,7 +388,6 @@
     -fx-padding: 4 0 0 0;
 }
 
-/* ── Login screen ── */
 .hotel-login-pane {
     -fx-background-color: hotel-bg;
 }
@@ -455,7 +435,6 @@
     -fx-text-fill: hotel-accent-hover;
 }
 
-/* ── Status badges ── */
 .badge-pending  { -fx-background-color: #fef3c7; -fx-text-fill: #92400e;
                   -fx-background-radius:12; -fx-padding: 2 8; -fx-font-size:11px; }
 .badge-approved { -fx-background-color: #d1fae5; -fx-text-fill: #065f46;
@@ -471,7 +450,6 @@
 .badge-maintenance{ -fx-background-color: #fef3c7; -fx-text-fill: #92400e;
                     -fx-background-radius:12; -fx-padding: 2 8; -fx-font-size:11px; }
 
-/* ── Rating stars ── */
 .star-label {
     -fx-font-size: 26px;
     -fx-cursor: hand;
@@ -480,14 +458,12 @@
 .star-filled { -fx-text-fill: #e8b84b; }
 .star-empty  { -fx-text-fill: hotel-border; }
 
-/* ── Separator ── */
 .hotel-sep {
     -fx-background-color: hotel-border;
     -fx-pref-height: 1;
     -fx-max-height: 1;
 }
 
-/* ── ScrollPane ── */
 .hotel-scroll {
     -fx-background-color: transparent;
     -fx-background: transparent;
@@ -498,12 +474,10 @@
     -fx-background-color: transparent;
 }
 
-/* ── Spinner / progress ── */
 .hotel-spinner {
     -fx-progress-color: hotel-accent;
 }
 
-/* ── Dialog ── */
 .hotel-dialog-pane {
     -fx-background-color: hotel-surface;
     -fx-border-color: hotel-border;
@@ -523,4 +497,41 @@
     -fx-text-fill: hotel-text-muted;
     -fx-font-size: 13px;
     -fx-wrap-text: true;
+}
+
+.hotel-text-muted {
+    -fx-text-fill: hotel-text-muted;
+    -fx-font-size: 13px;
+}
+
+.hotel-text-muted-sm {
+    -fx-text-fill: hotel-text-muted;
+    -fx-font-size: 12px;
+}
+
+.hotel-text-body {
+    -fx-text-fill: hotel-text;
+    -fx-font-size: 13px;
+}
+
+.hotel-text-title-md {
+    -fx-text-fill: hotel-text;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.rating-info-label {
+    -fx-text-fill: hotel-text-muted;
+    -fx-font-size: 13px;
+}
+
+.rating-title-label {
+    -fx-text-fill: hotel-text;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.rating-desc-label {
+    -fx-text-fill: hotel-text-muted;
+    -fx-font-size: 12px;
 }

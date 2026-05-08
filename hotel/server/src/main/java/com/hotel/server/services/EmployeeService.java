@@ -19,11 +19,6 @@ public class EmployeeService {
     public void hireEmployee(Employee employee) {
         if (employee.getAccountId() <= 0)
             throw new RuntimeException("Некарэктны ID акаўнта");
-        if (accountDao.findByEmail(null) == null) {
-            // праверка существавания акаунта через id
-            // (findByEmail не падыходзіць — трэба findById, але ў нас яго няма)
-            // На практыцы памылка прыйдзе ад БД (FK), таму проста ідзём далей
-        }
         if (employee.getPosition() == null)
             throw new RuntimeException("Не ўказана пасада");
         if (employee.getSalary() <= 0)

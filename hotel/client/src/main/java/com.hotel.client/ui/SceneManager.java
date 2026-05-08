@@ -1,25 +1,25 @@
 package com.hotel.client.ui;
 
+import com.hotel.client.ui.ThemeManager;
 import com.hotel.client.views.*;
 import com.hotel.common.dto.LoginResponse;
 import com.hotel.common.entities.Employee;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- * Кіруе навігацыяй паміж экранамі.
- * Утрымлівае спасылку на Stage і бягучую сесію.
- */
 public class SceneManager {
 
     private static final SceneManager INSTANCE = new SceneManager();
 
     private Stage stage;
-    private LoginResponse session; // бягучая сесія
+    private LoginResponse session;
 
-    private SceneManager() {}
+    private SceneManager() {
+    }
 
-    public static SceneManager getInstance() { return INSTANCE; }
+    public static SceneManager getInstance() {
+        return INSTANCE;
+    }
 
     public void init(Stage stage) {
         this.stage = stage;
@@ -28,9 +28,10 @@ public class SceneManager {
         stage.setMinHeight(680);
     }
 
-    public LoginResponse getSession() { return session; }
+    public LoginResponse getSession() {
+        return session;
+    }
 
-    /** Паказвае экран уваходу. */
     public void showLogin() {
         session = null;
         LoginView view = new LoginView();
@@ -38,15 +39,16 @@ public class SceneManager {
         stage.centerOnScreen();
     }
 
-    /** Выклікаецца пасля паспяховага ўваходу/рэгістрацыі. */
     public void onLoginSuccess(LoginResponse lr) {
         this.session = lr;
         showDashboard();
     }
 
-    /** Накіроўвае ў патрэбны дашборд паводле ролі. */
     private void showDashboard() {
-        if (session == null) { showLogin(); return; }
+        if (session == null) {
+            showLogin();
+            return;
+        }
 
         Employee.Position pos = session.getPosition();
 
@@ -55,8 +57,8 @@ public class SceneManager {
             scene = new GuestDashboard(session).buildScene();
         } else {
             scene = switch (pos) {
-                case RECEPTIONIST  -> new ReceptionistDashboard(session).buildScene();
-                case MANAGER       -> new ManagerDashboard(session).buildScene();
+                case RECEPTIONIST -> new ReceptionistDashboard(session).buildScene();
+                case MANAGER -> new ManagerDashboard(session).buildScene();
                 case ADMINISTRATOR -> new AdminDashboard(session).buildScene();
             };
         }
@@ -65,7 +67,6 @@ public class SceneManager {
         stage.centerOnScreen();
     }
 
-    /** Выйсці — вяртаемся на экран уваходу. */
     public void logout() {
         showLogin();
     }

@@ -16,8 +16,8 @@ public class Account implements Serializable {
         birthDate = null;
     }
 
-    public Account (int id, String email, String firstName, String lastName, String password,
-                    LocalDate birthDate) {
+    public Account(int id, String email, String firstName, String lastName, String password,
+                   LocalDate birthDate) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;
@@ -29,29 +29,39 @@ public class Account implements Serializable {
     public int getId() {
         return id;
     }
+
     public String getEmail() {
         return email;
     }
+
     public String getFirstName() {
         return firstName;
     }
+
     public String getLastName() {
         return lastName;
     }
+
     public LocalDate getBirthDate() {
         return birthDate;
     }
-    public String getPassword() { return password; }
+
+    public String getPassword() {
+        return password;
+    }
 
     public void setEmail(String email) {
         this.email = email;
     }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }

@@ -2,8 +2,8 @@ package com.hotel.client.views;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.hotel.client.SceneManager;
-import com.hotel.client.ThemeManager;
+import com.hotel.client.ui.SceneManager;
+import com.hotel.client.ui.ThemeManager;
 import com.hotel.client.network.ServerClient;
 import com.hotel.common.dto.LoginRequest;
 import com.hotel.common.dto.LoginResponse;
@@ -26,12 +26,10 @@ public class LoginView {
 
     public LoginView() { mapper.registerModule(new JavaTimeModule()); }
 
-    /** Будуе сцэну з кнопкай пераключэння паміж уваходам і рэгістрацыяй. */
     public Scene build() {
         StackPane root = new StackPane();
         root.getStyleClass().add("hotel-login-pane");
 
-        // Стэк з двума картамі (адна бачная ў адзін момант)
         VBox loginCard    = buildLoginCard(root);
         VBox registerCard = buildRegisterCard(root);
         registerCard.setVisible(false);
@@ -42,7 +40,6 @@ public class LoginView {
         Scene scene = new Scene(root, 480, 600);
         ThemeManager.getInstance().register(scene);
 
-        // Вешаем кнопкі пераключэння (паміж картамі)
         ((Button) loginCard.lookup("#toRegister")).setOnAction(e -> {
             loginCard.setVisible(false); loginCard.setManaged(false);
             registerCard.setVisible(true); registerCard.setManaged(true);
@@ -54,8 +51,6 @@ public class LoginView {
 
         return scene;
     }
-
-    // ── Login card ─────────────────────────────────────────────────────────
 
     private VBox buildLoginCard(StackPane root) {
         VBox card = new VBox(14);
@@ -80,7 +75,7 @@ public class LoginView {
         Label title = new Label("Вітаем");
         title.getStyleClass().add("hotel-login-title");
 
-        Label subtitle = new Label("Увайдзіце ў сваю ўліковы запіс");
+        Label subtitle = new Label("Увайдзіце ў свой ўліковы запіс");
         subtitle.getStyleClass().add("hotel-login-subtitle");
 
         Label emailLbl = buildFieldLabel("Email");
@@ -117,8 +112,6 @@ public class LoginView {
                 emailLbl, emailFld, passLbl, passFld, errLbl, spacer, loginBtn, registerRow);
         return card;
     }
-
-    // ── Register card ──────────────────────────────────────────────────────
 
     private VBox buildRegisterCard(StackPane root) {
         VBox card = new VBox(12);
@@ -173,8 +166,6 @@ public class LoginView {
         return card;
     }
 
-    // ── Actions ────────────────────────────────────────────────────────────
-
     private void doLogin(String email, String password, Label errLbl) {
         if (email.isBlank() || password.isBlank()) {
             show(errLbl, "Запоўніце ўсе палі"); return;
@@ -216,8 +207,6 @@ public class LoginView {
             show(errLbl, "Памылка: " + ex.getMessage());
         }
     }
-
-    // ── Helpers ────────────────────────────────────────────────────────────
 
     private Label buildFieldLabel(String text) {
         Label lbl = new Label(text);

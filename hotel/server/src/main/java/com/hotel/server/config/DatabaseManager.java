@@ -2,6 +2,7 @@ package com.hotel.server.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+
 import java.sql.*;
 
 public class DatabaseManager {

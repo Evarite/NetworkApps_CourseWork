@@ -1,7 +1,7 @@
 package com.hotel.client.views;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.hotel.client.SceneManager;
+import com.hotel.client.ui.SceneManager;
 import com.hotel.client.components.TableHelper;
 import com.hotel.common.dto.LoginResponse;
 import com.hotel.common.dto.ReservationRequest;
@@ -23,14 +23,12 @@ public class GuestDashboard extends ViewBase {
 
     private final LoginResponse session;
 
-    // Views
     private VBox roomsView;
     private VBox availRoomsView;
     private VBox myResView;
     private VBox bookView;
     private VBox profileView;
 
-    // Active nav button
     private Button activeBtn;
 
     public GuestDashboard(LoginResponse session) { this.session = session; }
@@ -39,13 +37,10 @@ public class GuestDashboard extends ViewBase {
         BorderPane root = new BorderPane();
         root.getStyleClass().add("hotel-scene");
 
-        // Sidebar
         root.setLeft(buildSidebar(root));
-        // Header
         root.setTop(buildHeader("Гатэль — Кабінет госця",
                 session.getAccount(), session.getPosition()));
 
-        // Default view
         root.setCenter(scrollWrap(buildRoomsView()));
 
         return new Scene(root, 1280, 760);
@@ -55,7 +50,6 @@ public class GuestDashboard extends ViewBase {
         VBox sidebar = new VBox(0);
         sidebar.getStyleClass().add("hotel-sidebar");
 
-        // Logo
         VBox logoBox = new VBox(2);
         logoBox.getStyleClass().add("hotel-sidebar-header");
         Label logo = new Label("🏨 HOTEL");
@@ -64,7 +58,6 @@ public class GuestDashboard extends ViewBase {
         sub.getStyleClass().add("hotel-logo-sub");
         logoBox.getChildren().addAll(logo, sub);
 
-        // Nav buttons
         Button btnAllRooms   = sidebarBtn("🛏  Усе нумары");
         Button btnAvailRooms = sidebarBtn("✅  Свабодныя нумары");
         Button btnBook       = sidebarBtn("📋  Забраніраваць");
@@ -107,8 +100,6 @@ public class GuestDashboard extends ViewBase {
         VBox.setVgrow(sidebar, Priority.ALWAYS);
         return sidebar;
     }
-
-    // ── Views ─────────────────────────────────────────────────────────────
 
     private VBox buildRoomsView() {
         VBox box = contentBox();
@@ -222,7 +213,7 @@ public class GuestDashboard extends ViewBase {
                 List<Room> rooms = mapper.readValue(resp.getData(), new TypeReference<>() {});
                 roomCombo.getItems().addAll(rooms);
             }
-        } catch (Exception ex) { /* пакажам пусты спіс */ }
+        } catch (Exception ex) {}
 
         TextField dateFld = field("Дата заезду (гггг-мм-дд)");
         Spinner<Integer> durSpinner = new Spinner<>(1, 365, 1);
@@ -258,7 +249,7 @@ public class GuestDashboard extends ViewBase {
                     roomCombo.setValue(null);
                     dateFld.clear();
                     durSpinner.getValueFactory().setValue(1);
-                    // Перагружаем спіс свабодных нумароў
+
                     roomCombo.getItems().clear();
                     Response r2 = send(new Request(Operation.GET_AVAILABLE_ROOMS, null));
                     if (r2 != null && r2.isSuccess()) {
@@ -327,8 +318,6 @@ public class GuestDashboard extends ViewBase {
         box.getChildren().add(card("Рэдагаваць акаўнт", form));
         return box;
     }
-
-    // ── Data loaders ──────────────────────────────────────────────────────
 
     private void loadRooms(TableView<Room> table, Label msg, boolean onlyAvailable) {
         try {

@@ -1,31 +1,65 @@
 package com.hotel.common.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Guest implements Serializable {
+
     private int accountId;
     private float rating;
-    private int reservationsCount;
+    private int reservationsAmount;
+    private int ratingsAmount;
 
-    public Guest() {}
+    public Guest() {
+    }
 
-    public Guest(int accountId, float rating, int reservationsCount) {
+    public Guest(int accountId, float rating, int reservationsAmount, int ratingsAmount) {
         this.accountId = accountId;
         this.rating = rating;
-        this.reservationsCount = reservationsCount;
+        this.reservationsAmount = reservationsAmount;
+        this.ratingsAmount = ratingsAmount;
     }
 
-    public int getAccountId()        { return accountId; }
-    public float getRating()          { return rating; }
-    public int getReservationsCount() { return reservationsCount; }
+    public int getAccountId() {
+        return accountId;
+    }
 
-    public void setAccountId(int accountId)               { this.accountId = accountId; }
-    public void setRating(float rating)                   { this.rating = rating; }
-    public void setReservationsCount(int reservationsCount){ this.reservationsCount = reservationsCount; }
+    public float getRating() {
+        return rating;
+    }
 
-    /** Аварэджны рэйтынг ад 0.0 да 5.0 */
+    public int getReservationsAmount() {
+        return reservationsAmount;
+    }
+
+    public int getRatingsAmount() {
+        return ratingsAmount;
+    }
+
+    public void setAccountId(int v) {
+        this.accountId = v;
+    }
+
+    public void setRating(float v) {
+        this.rating = v;
+    }
+
+    public void setReservationsAmount(int v) {
+        this.reservationsAmount = v;
+    }
+
+    public void setRatingsAmount(int v) {
+        this.ratingsAmount = v;
+    }
+
+    @JsonIgnore
     public float getAverageRating() {
-        if (reservationsCount == 0) return 0f;
-        return Math.min(5f, rating / reservationsCount);
+        if (ratingsAmount == 0) return 0f;
+        return Math.min(5f, rating / ratingsAmount);
     }
 }
+

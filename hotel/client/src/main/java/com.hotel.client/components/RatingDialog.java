@@ -7,10 +7,6 @@ import javafx.scene.layout.*;
 
 import java.util.Optional;
 
-/**
- * Дыялог з зорачкамі для выстаўлення адзнакі пры выселенні.
- * Вяртае Optional<Integer> ад 1 да 5.
- */
 public class RatingDialog {
 
     private int selectedRating = 0;
@@ -22,7 +18,7 @@ public class RatingDialog {
 
         // Кнопкі
         ButtonType confirmType = new ButtonType("Выселіць", ButtonBar.ButtonData.OK_DONE);
-        ButtonType cancelType  = new ButtonType("Адмена", ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType cancelType = new ButtonType("Скасаваць", ButtonBar.ButtonData.CANCEL_CLOSE);
         dialog.getDialogPane().getButtonTypes().addAll(confirmType, cancelType);
 
         Button confirmBtn = (Button) dialog.getDialogPane().lookupButton(confirmType);
@@ -35,10 +31,10 @@ public class RatingDialog {
         content.setAlignment(Pos.CENTER_LEFT);
 
         Label infoLbl = new Label("Браніраванне #" + reservationId);
-        infoLbl.setStyle("-fx-text-fill: -hotel-text-muted; -fx-font-size: 13px;");
+        infoLbl.getStyleClass().add("rating-info-label");
 
         Label titleLbl = new Label("Выстаўце адзнаку госцю:");
-        titleLbl.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: -hotel-text;");
+        titleLbl.getStyleClass().add("rating-title-label");
 
         // Зоркі
         HBox stars = new HBox(6);
@@ -61,7 +57,7 @@ public class RatingDialog {
         }
 
         Label ratingDesc = new Label("Абярыце адзнаку");
-        ratingDesc.setStyle("-fx-text-fill: -hotel-text-muted; -fx-font-size: 12px;");
+        ratingDesc.getStyleClass().add("rating-desc-label");
 
         // Абнаўляем апісанне пры выбары
         for (int i = 1; i <= 5; i++) {

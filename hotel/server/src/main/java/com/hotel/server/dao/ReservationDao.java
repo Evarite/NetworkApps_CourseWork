@@ -60,12 +60,14 @@ public class ReservationDao {
         exec("UPDATE room SET status = 'available' WHERE number = ?", r.getRoomNumber());
     }
 
-    public List<Reservation> getPendingReservations()  {
+    public List<Reservation> getPendingReservations() {
         return query("WHERE status='pending'");
     }
+
     public List<Reservation> getApprovedReservations() {
         return query("WHERE status='approved'");
     }
+
     public List<Reservation> getAllReservations() {
         return query("");
     }
@@ -101,8 +103,6 @@ public class ReservationDao {
         }
     }
 
-    //helpers ──────────────────────────────────────────────────────────────
-
     private List<Reservation> query(String where) {
         String sql = "SELECT * FROM reservation " + where;
         try (Connection conn = DatabaseManager.getConnection();
@@ -135,7 +135,11 @@ public class ReservationDao {
         if (r == null) throw new RuntimeException("Браніраванне #" + id + " не знойдзена");
         String current = r.getStatus().name().toLowerCase();
         boolean found = false;
-        for (String s : statuses) if (s.equals(current)) { found = true; break; }
+        for (String s : statuses)
+            if (s.equals(current)) {
+                found = true;
+                break;
+            }
         if (mustBe && !found)
             throw new RuntimeException("Непадыходны статус браніравання: " + current);
         if (!mustBe && found)

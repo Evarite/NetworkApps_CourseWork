@@ -59,8 +59,8 @@ public class RoomService {
         if (room.getCapacity() == null)
             throw new RuntimeException("Не ўказана месткасць");
         if (room.getPrice() <= 0)
-            throw new RuntimeException("Цана за ноч павінна быць станоўчым лікам");
+            throw new RuntimeException("Кошт за ноч павінен быць станоўчым лікам");
         if (room.getPrice() > 100_000)
-            throw new RuntimeException("Цана за ноч не можа перавышаць 100 000 BYN");
+            throw new RuntimeException("Кошт за ноч не можа перавышаць 100 000 BYN");
     }
 }

@@ -2,8 +2,8 @@ package com.hotel.client.views;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.hotel.client.SceneManager;
-import com.hotel.client.ThemeManager;
+import com.hotel.client.ui.SceneManager;
+import com.hotel.client.ui.ThemeManager;
 import com.hotel.client.network.ServerClient;
 import com.hotel.common.entities.Account;
 import com.hotel.common.entities.Employee;
@@ -14,9 +14,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
-/**
- * Базавы клас з агульнымі метадамі для ўсіх дашбордаў.
- */
 public abstract class ViewBase {
 
     protected final ObjectMapper mapper = new ObjectMapper();
@@ -25,8 +22,6 @@ public abstract class ViewBase {
     protected ViewBase() {
         mapper.registerModule(new JavaTimeModule());
     }
-
-    // ── Header ───────────────────────────────────────────────────────────────
 
     protected HBox buildHeader(String title, Account account, Employee.Position position) {
         HBox header = new HBox();
@@ -40,15 +35,12 @@ public abstract class ViewBase {
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        // Бэдж ролі
         Label roleBadge = new Label(posToStr(position));
         roleBadge.getStyleClass().add("hotel-user-badge");
 
-        // Імя карыстальніка
         Label userLbl = new Label(account.getFirstName() + " " + account.getLastName());
-        userLbl.setStyle("-fx-text-fill: -hotel-text-muted; -fx-font-size: 13px;");
+        userLbl.getStyleClass().add("hotel-text-muted");
 
-        // Кнопка тэмы
         Button themeBtn = new Button(ThemeManager.getInstance().themeIcon());
         themeBtn.getStyleClass().add("hotel-theme-btn");
         themeBtn.setOnAction(e -> {
@@ -56,7 +48,6 @@ public abstract class ViewBase {
             themeBtn.setText(ThemeManager.getInstance().themeIcon());
         });
 
-        // Кнопка выхаду
         Button logoutBtn = new Button("Выйсці");
         logoutBtn.getStyleClass().add("hotel-logout-btn");
         logoutBtn.setOnAction(e -> SceneManager.getInstance().logout());
@@ -64,8 +55,6 @@ public abstract class ViewBase {
         header.getChildren().addAll(titleLbl, spacer, roleBadge, userLbl, themeBtn, logoutBtn);
         return header;
     }
-
-    // ── Sidebar button ───────────────────────────────────────────────────────
 
     protected Button sidebarBtn(String text) {
         Button btn = new Button(text);
@@ -81,13 +70,10 @@ public abstract class ViewBase {
         return lbl;
     }
 
-    /** Актывуе адну кнопку, дэактывуе ўсе іншыя. */
     protected void activateBtn(Button active, Button... all) {
         for (Button b : all) b.getStyleClass().remove("active");
         active.getStyleClass().add("active");
     }
-
-    // ── Content wrapper ──────────────────────────────────────────────────────
 
     protected ScrollPane scrollWrap(Pane content) {
         ScrollPane sp = new ScrollPane(content);
@@ -104,8 +90,6 @@ public abstract class ViewBase {
         return box;
     }
 
-    // ── Card ─────────────────────────────────────────────────────────────────
-
     protected VBox card(String title, javafx.scene.Node... children) {
         VBox card = new VBox(10);
         card.getStyleClass().add("hotel-card");
@@ -117,8 +101,6 @@ public abstract class ViewBase {
         card.getChildren().addAll(children);
         return card;
     }
-
-    // ── Form helpers ─────────────────────────────────────────────────────────
 
     protected TextField field(String prompt) {
         TextField tf = new TextField();
@@ -172,8 +154,6 @@ public abstract class ViewBase {
         lbl.setManaged(false);
     }
 
-    // ── Network helper ───────────────────────────────────────────────────────
-
     protected Response send(Request req) {
         try {
             return server.sendRequest(req);
@@ -181,8 +161,6 @@ public abstract class ViewBase {
             return new Response(false, "Немагчыма злучыцца з серверам: " + e.getMessage(), null);
         }
     }
-
-    // ── Alert dialog ─────────────────────────────────────────────────────────
 
     protected void alert(String title, String msg, Alert.AlertType type) {
         Alert al = new Alert(type);
@@ -200,18 +178,14 @@ public abstract class ViewBase {
         return al.showAndWait().map(r -> r == ButtonType.OK).orElse(false);
     }
 
-    // ── Role label ───────────────────────────────────────────────────────────
-
     protected String posToStr(Employee.Position pos) {
         if (pos == null) return "Госць";
         return switch (pos) {
-            case RECEPTIONIST  -> "Парцье";
-            case MANAGER       -> "Мэнэджар";
+            case RECEPTIONIST -> "Парцье";
+            case MANAGER -> "Мэнэджар";
             case ADMINISTRATOR -> "Адміністратар";
         };
     }
-
-    // ── Separator ────────────────────────────────────────────────────────────
 
     protected Pane sep() {
         Pane p = new Pane();
@@ -221,9 +195,8 @@ public abstract class ViewBase {
         return p;
     }
 
-    /** Кнопка "Абнавіць" са значком. */
     protected Button refreshBtn(Runnable action) {
-        Button btn = new Button("↻ Абнавіць");
+        Button btn = new Button("↻ Аднавіць");
         btn.getStyleClass().add("hotel-btn-secondary");
         btn.setOnAction(e -> action.run());
         return btn;

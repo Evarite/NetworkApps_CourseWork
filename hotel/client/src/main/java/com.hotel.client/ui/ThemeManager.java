@@ -1,4 +1,4 @@
-package com.hotel.client;
+package com.hotel.client.ui;
 
 import javafx.scene.Scene;
 
@@ -6,10 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * Кіруе пераключэннем светлай/цёмнай тэмы.
- * Рэгіструе ўсе сцэны і сінхронна перагружае CSS.
- */
 public class ThemeManager {
 
     private static final ThemeManager INSTANCE = new ThemeManager();
@@ -23,32 +19,33 @@ public class ThemeManager {
 
     private ThemeManager() {
         lightCss = Objects.requireNonNull(
-                getClass().getResource("/com/hotel/client/css/light.css"),
+                getClass().getResource("/css/light.css"),
                 "light.css не знойдзены ў рэсурсах"
         ).toExternalForm();
 
         darkCss = Objects.requireNonNull(
-                getClass().getResource("/com/hotel/client/css/dark.css"),
+                getClass().getResource("/css/dark.css"),
                 "dark.css не знойдзены ў рэсурсах"
         ).toExternalForm();
     }
 
-    public static ThemeManager getInstance() { return INSTANCE; }
+    public static ThemeManager getInstance() {
+        return INSTANCE;
+    }
 
-    public boolean isDark() { return dark; }
+    public boolean isDark() {
+        return dark;
+    }
 
-    /** Рэгіструе сцэну і адразу прымяняе бягучую тэму. */
     public void register(Scene scene) {
         scenes.add(scene);
         applyTo(scene);
     }
 
-    /** Адрэгіструе сцэну (напрыклад, пры закрыцці акна). */
     public void unregister(Scene scene) {
         scenes.remove(scene);
     }
 
-    /** Пераключае тэму для ўсіх зарэгістраваных сцэн. */
     public void toggle() {
         dark = !dark;
         scenes.forEach(this::applyTo);
@@ -60,5 +57,7 @@ public class ThemeManager {
         if (dark) scene.getStylesheets().add(darkCss);
     }
 
-    public String themeIcon() { return dark ? "☀" : "🌙"; }
+    public String themeIcon() {
+        return dark ? "☀" : "🌙";
+    }
 }

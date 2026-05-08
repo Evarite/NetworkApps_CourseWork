@@ -1,6 +1,7 @@
 package com.hotel.common.network;
 
 import com.hotel.common.enums.Operation;
+
 import java.io.Serializable;
 
 public class Request implements Serializable {

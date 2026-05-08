@@ -72,8 +72,6 @@ public class ManagerDashboard extends ViewBase {
         return sidebar;
     }
 
-    // ── Views ─────────────────────────────────────────────────────────────
-
     private VBox allRoomsView() {
         VBox box = contentBox();
         TableView<Room> table = TableHelper.roomTable();
@@ -217,14 +215,12 @@ public class ManagerDashboard extends ViewBase {
 
     private VBox guestsWithResView() {
         VBox box = contentBox();
-        TextArea area = new TextArea();
-        area.setEditable(false);
-        area.setPrefHeight(480);
-        area.setStyle("-fx-font-family: monospace; -fx-font-size: 13px;");
+        TableView<Guest> table = TableHelper.guestTable();
+        table.setPrefHeight(480);
         Label msg = errorLabel();
-        Button refresh = refreshBtn(() -> loadGuestsWithRes(area, msg));
-        box.getChildren().add(card("Госці з браніраваннямі", new HBox(8, refresh), area, msg));
-        loadGuestsWithRes(area, msg);
+        Button refresh = refreshBtn(() -> loadGuestsWithRes(table, msg));
+        box.getChildren().add(card("Госці з браніраваннямі", new HBox(8, refresh), table, msg));
+        loadGuestsWithRes(table, msg);
         return box;
     }
 
@@ -258,8 +254,6 @@ public class ManagerDashboard extends ViewBase {
         box.getChildren().add(card("Рэдагаваць акаўнт", form));
         return box;
     }
-
-    // ── Loaders ───────────────────────────────────────────────────────────
 
     private void loadRooms(TableView<Room> table, Label msg, boolean onlyAvail) {
         try {
@@ -295,24 +289,16 @@ public class ManagerDashboard extends ViewBase {
         } catch (Exception ex) { showError(msg, ex.getMessage()); }
     }
 
-    private void loadGuestsWithRes(TextArea area, Label msg) {
+    private void loadGuestsWithRes(TableView<Guest> table, Label msg) {
         try {
             Response resp = send(new Request(Operation.GET_ALL_GUESTS_WITH_RESERVATIONS, null));
             if (resp != null && resp.isSuccess()) {
                 List<Guest> list = mapper.readValue(resp.getData(), new TypeReference<>() {});
-                StringBuilder sb = new StringBuilder();
-                sb.append(String.format("%-12s %-24s%n", "ID акаўнта", "Сярэдні рэйтынг"));
-                sb.append("─".repeat(40)).append("\n");
-                for (Guest g : list)
-                    sb.append(String.format("%-12d %.1f ★  (%d адзн.)%n",
-                            g.getAccountId(), g.getAverageRating(), g.getReservationsCount()));
-                area.setText(sb.toString());
+                table.setItems(FXCollections.observableArrayList(list));
                 clearMsg(msg);
             } else showError(msg, resp != null ? resp.getMessage() : "Памылка");
         } catch (Exception ex) { showError(msg, ex.getMessage()); }
     }
-
-    // ── Room combo helpers ────────────────────────────────────────────────
 
     private ComboBox<Room> buildRoomCombo(Label msg, boolean maintenanceOnly) {
         ComboBox<Room> combo = new ComboBox<>();

@@ -12,7 +12,7 @@ import com.hotel.server.services.EmployeeService;
 public class EmployeeController {
 
     private final EmployeeService employeeService = new EmployeeService();
-    private final ObjectMapper    mapper          = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper();
 
     public EmployeeController() {
         mapper.registerModule(new JavaTimeModule());

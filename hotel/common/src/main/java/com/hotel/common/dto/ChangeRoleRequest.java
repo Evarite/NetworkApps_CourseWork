@@ -8,7 +8,8 @@ public class ChangeRoleRequest implements Serializable {
     private int accountId;
     private Employee.Position newPosition;
 
-    public ChangeRoleRequest() {}
+    public ChangeRoleRequest() {
+    }
 
     public ChangeRoleRequest(int accountId, Employee.Position newPosition) {
         this.accountId = accountId;
