@@ -460,3 +460,143 @@ java.io.PrintWriter@1794e447
 2026-05-08 12:28:46,208 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
 2026-05-08 12:28:58,205 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усіх гасцей | Кліент: /127.0.0.1
 2026-05-08 12:29:32,933 WARN  com.hotel.server.network.ClientThread - Кліент закрыў злучэнне без DISCONNECT: /127.0.0.1
+2026-05-08 12:57:01,141 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-05-08 12:57:07,415 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-05-08 12:57:07,718 INFO  com.hotel.server.network.ClientThread - Запушчаны паток для кліента: /127.0.0.1
+2026-05-08 12:57:07,727 INFO  com.hotel.client.network.ServerClient - Злучэнне з серверам 127.0.0.1:6666 паспяховае
+2026-05-08 12:58:37,562 INFO  com.hotel.server.network.ClientThread - Аперацыя: Стварыць новы акаўнт | Кліент: /127.0.0.1
+2026-05-08 12:58:38,833 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 12:58:43,242 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
+2026-05-08 12:58:45,339 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 12:58:45,953 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
+2026-05-08 12:58:47,274 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
+2026-05-08 12:58:51,464 INFO  com.hotel.server.network.ClientThread - Аперацыя: Мае браніраванні | Кліент: /127.0.0.1
+2026-05-08 12:58:52,340 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
+2026-05-08 12:58:57,071 INFO  com.hotel.server.network.ClientThread - Аперацыя: Мае браніраванні | Кліент: /127.0.0.1
+2026-05-08 12:59:00,170 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
+2026-05-08 12:59:04,626 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
+2026-05-08 12:59:05,976 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 12:59:06,998 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
+2026-05-08 12:59:33,805 INFO  com.hotel.server.network.ClientThread - Аперацыя: Забраніраваць нумар | Кліент: /127.0.0.1
+2026-05-08 12:59:33,855 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
+2026-05-08 12:59:36,638 INFO  com.hotel.server.network.ClientThread - Аперацыя: Мае браніраванні | Кліент: /127.0.0.1
+2026-05-08 12:59:42,308 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 12:59:46,998 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
+2026-05-08 12:59:56,468 INFO  com.hotel.server.network.ClientThread - Аперацыя: Мае браніраванні | Кліент: /127.0.0.1
+2026-05-08 12:59:58,488 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
+2026-05-08 13:00:13,517 INFO  com.hotel.server.network.ClientThread - Аперацыя: Забраніраваць нумар | Кліент: /127.0.0.1
+2026-05-08 13:00:13,544 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
+2026-05-08 13:00:15,172 INFO  com.hotel.server.network.ClientThread - Аперацыя: Мае браніраванні | Кліент: /127.0.0.1
+2026-05-08 13:00:29,369 INFO  com.hotel.server.network.ClientThread - Аперацыя: Увайсці ў акаўнт | Кліент: /127.0.0.1
+2026-05-08 13:00:29,666 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 13:00:32,507 INFO  com.hotel.server.network.ClientThread - Аперацыя: Браніраванні, якія чакаюць зацверджання | Кліент: /127.0.0.1
+2026-05-08 13:00:38,198 INFO  com.hotel.server.network.ClientThread - Аперацыя: Браніраванні, якія чакаюць зацверджання | Кліент: /127.0.0.1
+2026-05-08 13:00:46,387 INFO  com.hotel.server.network.ClientThread - Аперацыя: Зацвердзіць браніраванне | Кліент: /127.0.0.1
+2026-05-08 13:00:46,414 INFO  com.hotel.server.network.ClientThread - Аперацыя: Браніраванні, якія чакаюць зацверджання | Кліент: /127.0.0.1
+2026-05-08 13:00:54,052 INFO  com.hotel.server.network.ClientThread - Аперацыя: Браніраванні, якія чакаюць зацверджання | Кліент: /127.0.0.1
+2026-05-08 13:00:58,061 INFO  com.hotel.server.network.ClientThread - Аперацыя: Скасаваць браніраванне | Кліент: /127.0.0.1
+2026-05-08 13:00:58,079 INFO  com.hotel.server.network.ClientThread - Аперацыя: Браніраванні, якія чакаюць зацверджання | Кліент: /127.0.0.1
+2026-05-08 13:00:59,922 INFO  com.hotel.server.network.ClientThread - Аперацыя: Браніраванні, якія чакаюць зацверджання | Кліент: /127.0.0.1
+2026-05-08 13:01:00,321 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе браніраванні | Кліент: /127.0.0.1
+2026-05-08 13:01:15,577 INFO  com.hotel.server.network.ClientThread - Аперацыя: Увайсці ў акаўнт | Кліент: /127.0.0.1
+2026-05-08 13:01:15,754 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 13:01:17,757 INFO  com.hotel.server.network.ClientThread - Аперацыя: Мае браніраванні | Кліент: /127.0.0.1
+2026-05-08 13:01:19,972 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
+2026-05-08 13:01:20,800 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
+2026-05-08 13:01:22,677 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 13:01:25,028 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
+2026-05-08 13:01:26,267 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 13:01:27,504 INFO  com.hotel.server.network.ClientThread - Аперацыя: Мае браніраванні | Кліент: /127.0.0.1
+2026-05-08 13:01:31,074 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
+2026-05-08 13:02:56,849 INFO  com.hotel.server.network.ClientThread - Аперацыя: Стварыць новы акаўнт | Кліент: /127.0.0.1
+2026-05-08 13:02:56,853 ERROR com.hotel.server.network.ClientThread - ResponseException: Памылка падчас рэгістрацыі: Няправільны фармат імя
+2026-05-08 13:03:14,524 WARN  com.hotel.server.network.ClientThread - Кліент закрыў злучэнне без DISCONNECT: /127.0.0.1
+2026-05-08 13:04:14,265 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-05-08 13:04:17,184 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-05-08 13:04:17,451 INFO  com.hotel.server.network.ClientThread - Запушчаны паток для кліента: /127.0.0.1
+2026-05-08 13:04:17,462 INFO  com.hotel.client.network.ServerClient - Злучэнне з серверам 127.0.0.1:6666 паспяховае
+2026-05-08 13:04:45,107 INFO  com.hotel.server.network.ClientThread - Аперацыя: Стварыць новы акаўнт | Кліент: /127.0.0.1
+2026-05-08 13:04:45,241 ERROR com.hotel.server.network.ClientThread - ResponseException: Памылка падчас рэгістрацыі: Няправільны фармат email
+2026-05-08 13:04:55,832 WARN  com.hotel.server.network.ClientThread - Кліент закрыў злучэнне без DISCONNECT: /127.0.0.1
+2026-05-08 14:07:49,486 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-05-08 14:07:54,983 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-05-08 14:07:55,494 INFO  com.hotel.server.network.ClientThread - Запушчаны паток для кліента: /127.0.0.1
+2026-05-08 14:07:55,503 INFO  com.hotel.client.network.ServerClient - Злучэнне з серверам 127.0.0.1:6666 паспяховае
+2026-05-08 14:08:09,556 INFO  com.hotel.server.network.ClientThread - Аперацыя: Увайсці ў акаўнт | Кліент: /127.0.0.1
+2026-05-08 14:08:10,349 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 14:08:13,420 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
+2026-05-08 14:08:14,623 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 14:08:16,103 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
+2026-05-08 14:08:16,908 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 14:08:17,915 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
+2026-05-08 14:08:18,422 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
+2026-05-08 14:08:19,353 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 14:08:20,079 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 14:08:20,736 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
+2026-05-08 14:08:21,517 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 14:08:22,138 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
+2026-05-08 14:08:23,914 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 14:08:24,929 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
+2026-05-08 14:08:25,917 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 14:08:31,499 INFO  com.hotel.server.network.ClientThread - Аперацыя: Зацверджаныя браніраванні | Кліент: /127.0.0.1
+2026-05-08 14:08:55,530 INFO  com.hotel.server.network.ClientThread - Аперацыя: Выселіць госця | Кліент: /127.0.0.1
+2026-05-08 14:08:55,575 INFO  com.hotel.server.network.ClientThread - Аперацыя: Зацверджаныя браніраванні | Кліент: /127.0.0.1
+2026-05-08 14:09:00,464 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усіх гасцей | Кліент: /127.0.0.1
+2026-05-08 14:09:05,059 WARN  com.hotel.server.network.ClientThread - Кліент закрыў злучэнне без DISCONNECT: /127.0.0.1
+2026-05-08 14:24:51,699 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-05-08 14:24:58,842 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-05-08 14:24:59,167 INFO  com.hotel.server.network.ClientThread - Запушчаны паток для кліента: /127.0.0.1
+2026-05-08 14:24:59,176 INFO  com.hotel.client.network.ServerClient - Злучэнне з серверам 127.0.0.1:6666 паспяховае
+2026-05-08 15:02:10,395 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-05-08 15:02:20,273 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-05-08 15:02:20,689 INFO  com.hotel.server.network.ClientThread - Запушчаны паток для кліента: /127.0.0.1
+2026-05-08 15:02:20,707 INFO  com.hotel.client.network.ServerClient - Злучэнне з серверам 127.0.0.1:6666 паспяховае
+2026-05-08 15:02:26,640 WARN  com.hotel.server.network.ClientThread - Кліент закрыў злучэнне без DISCONNECT: /127.0.0.1
+2026-05-08 15:11:32,054 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-05-08 15:11:35,510 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-05-08 15:11:35,786 INFO  com.hotel.server.network.ClientThread - Запушчаны паток для кліента: /127.0.0.1
+2026-05-08 15:11:35,794 INFO  com.hotel.client.network.ServerClient - Злучэнне з серверам 127.0.0.1:6666 паспяховае
+2026-05-08 15:11:51,769 INFO  com.hotel.server.network.ClientThread - Аперацыя: Увайсці ў акаўнт | Кліент: /127.0.0.1
+2026-05-08 15:11:52,958 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 15:12:05,828 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усіх гасцей | Кліент: /127.0.0.1
+2026-05-08 15:12:09,268 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 15:12:12,907 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
+2026-05-08 15:12:15,015 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 15:12:17,638 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 15:12:18,354 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 15:12:19,056 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 15:12:21,106 INFO  com.hotel.server.network.ClientThread - Аперацыя: Часова зачыніць нумар | Кліент: /127.0.0.1
+2026-05-08 15:12:21,128 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 15:12:22,093 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 15:12:25,372 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець свабодныя нумары | Кліент: /127.0.0.1
+2026-05-08 15:12:27,389 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 15:12:29,747 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 15:12:31,261 INFO  com.hotel.server.network.ClientThread - Аперацыя: Адчыніць нумар | Кліент: /127.0.0.1
+2026-05-08 15:12:31,279 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 15:12:43,402 INFO  com.hotel.server.network.ClientThread - Аперацыя: Браніраванні, якія чакаюць зацверджання | Кліент: /127.0.0.1
+2026-05-08 15:12:45,547 INFO  com.hotel.server.network.ClientThread - Аперацыя: Браніраванні, якія чакаюць зацверджання | Кліент: /127.0.0.1
+2026-05-08 15:12:49,397 INFO  com.hotel.server.network.ClientThread - Аперацыя: Браніраванні, якія чакаюць зацверджання | Кліент: /127.0.0.1
+2026-05-08 15:12:54,495 INFO  com.hotel.server.network.ClientThread - Аперацыя: Зацверджаныя браніраванні | Кліент: /127.0.0.1
+2026-05-08 15:12:55,324 INFO  com.hotel.server.network.ClientThread - Аперацыя: Зацверджаныя браніраванні | Кліент: /127.0.0.1
+2026-05-08 15:12:55,895 INFO  com.hotel.server.network.ClientThread - Аперацыя: Зацверджаныя браніраванні | Кліент: /127.0.0.1
+2026-05-08 15:12:59,119 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усіх супрацоўнікаў | Кліент: /127.0.0.1
+2026-05-08 15:13:11,701 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-08 15:13:19,332 WARN  com.hotel.server.network.ClientThread - Кліент закрыў злучэнне без DISCONNECT: /127.0.0.1
+2026-05-17 23:27:15,993 ERROR com.hotel.client.network.ServerClient - Не ўдалося злучыцца з серверам: Connection refused: connect
+2026-05-17 23:27:26,624 INFO  com.hotel.server.ServerApplication - Сервер запушчаны на порце: 6666
+2026-05-17 23:27:29,787 INFO  com.hotel.server.ServerApplication - Кліент падлучыўся: /127.0.0.1
+2026-05-17 23:27:30,126 INFO  com.hotel.server.network.ClientThread - Запушчаны паток для кліента: /127.0.0.1
+2026-05-17 23:27:30,131 INFO  com.hotel.client.network.ServerClient - Злучэнне з серверам 127.0.0.1:6666 паспяховае
+2026-05-17 23:28:39,603 INFO  com.hotel.server.network.ClientThread - Аперацыя: Увайсці ў акаўнт | Кліент: /127.0.0.1
+2026-05-17 23:28:40,687 ERROR com.hotel.server.network.ClientThread - ResponseException: Памылка падчас уваходу: Няправільны email або пароль
+2026-05-17 23:28:46,051 INFO  com.hotel.server.network.ClientThread - Аперацыя: Увайсці ў акаўнт | Кліент: /127.0.0.1
+2026-05-17 23:28:46,176 ERROR com.hotel.server.network.ClientThread - ResponseException: Памылка падчас уваходу: Няправільны email або пароль
+2026-05-17 23:28:55,934 INFO  com.hotel.server.network.ClientThread - Аперацыя: Увайсці ў акаўнт | Кліент: /127.0.0.1
+2026-05-17 23:28:56,055 ERROR com.hotel.server.network.ClientThread - ResponseException: Памылка падчас уваходу: Няправільны email або пароль
+2026-05-17 23:29:00,727 INFO  com.hotel.server.network.ClientThread - Аперацыя: Увайсці ў акаўнт | Кліент: /127.0.0.1
+2026-05-17 23:29:00,845 ERROR com.hotel.server.network.ClientThread - ResponseException: Памылка падчас уваходу: Няправільны email або пароль
+2026-05-17 23:31:57,298 INFO  com.hotel.server.network.ClientThread - Аперацыя: Стварыць новы акаўнт | Кліент: /127.0.0.1
+2026-05-17 23:31:57,700 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-17 23:32:56,407 INFO  com.hotel.server.network.ClientThread - Аперацыя: Увайсці ў акаўнт | Кліент: /127.0.0.1
+2026-05-17 23:32:56,672 INFO  com.hotel.server.network.ClientThread - Аперацыя: Прагледзець усе нумары | Кліент: /127.0.0.1
+2026-05-18 00:02:13,030 WARN  com.hotel.server.network.ClientThread - Кліент закрыў злучэнне без DISCONNECT: /127.0.0.1

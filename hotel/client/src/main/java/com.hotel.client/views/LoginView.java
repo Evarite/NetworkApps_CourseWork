@@ -24,13 +24,15 @@ public class LoginView {
     private final ObjectMapper mapper = new ObjectMapper();
     private final ServerClient server = ServerClient.getInstance();
 
-    public LoginView() { mapper.registerModule(new JavaTimeModule()); }
+    public LoginView() {
+        mapper.registerModule(new JavaTimeModule());
+    }
 
     public Scene build() {
         StackPane root = new StackPane();
         root.getStyleClass().add("hotel-login-pane");
 
-        VBox loginCard    = buildLoginCard(root);
+        VBox loginCard = buildLoginCard(root);
         VBox registerCard = buildRegisterCard(root);
         registerCard.setVisible(false);
         registerCard.setManaged(false);
@@ -41,12 +43,16 @@ public class LoginView {
         ThemeManager.getInstance().register(scene);
 
         ((Button) loginCard.lookup("#toRegister")).setOnAction(e -> {
-            loginCard.setVisible(false); loginCard.setManaged(false);
-            registerCard.setVisible(true); registerCard.setManaged(true);
+            loginCard.setVisible(false);
+            loginCard.setManaged(false);
+            registerCard.setVisible(true);
+            registerCard.setManaged(true);
         });
         ((Button) registerCard.lookup("#toLogin")).setOnAction(e -> {
-            registerCard.setVisible(false); registerCard.setManaged(false);
-            loginCard.setVisible(true); loginCard.setManaged(true);
+            registerCard.setVisible(false);
+            registerCard.setManaged(false);
+            loginCard.setVisible(true);
+            loginCard.setManaged(true);
         });
 
         return scene;
@@ -128,11 +134,11 @@ public class LoginView {
         Label subtitle = new Label("Стварыце ўліковы запіс");
         subtitle.getStyleClass().add("hotel-login-subtitle");
 
-        TextField emailFld   = buildTextField("Email");
-        TextField firstFld   = buildTextField("Імя");
-        TextField lastFld    = buildTextField("Прозвішча");
+        TextField emailFld = buildTextField("Email");
+        TextField firstFld = buildTextField("Імя");
+        TextField lastFld = buildTextField("Прозвішча");
         PasswordField passFld = buildPassField("Пароль (мін. 6 сімвалаў)");
-        TextField birthFld   = buildTextField("Дата нараджэння (гггг-мм-дд)");
+        TextField birthFld = buildTextField("Дата нараджэння (гггг-мм-дд)");
 
         Label errLbl = new Label("");
         errLbl.getStyleClass().add("hotel-error-label");
@@ -168,13 +174,15 @@ public class LoginView {
 
     private void doLogin(String email, String password, Label errLbl) {
         if (email.isBlank() || password.isBlank()) {
-            show(errLbl, "Запоўніце ўсе палі"); return;
+            show(errLbl, "Запоўніце ўсе палі");
+            return;
         }
         try {
             String json = mapper.writeValueAsString(new LoginRequest(email, password));
             Response resp = server.sendRequest(new Request(Operation.LOGIN, json));
             if (resp == null || !resp.isSuccess()) {
-                show(errLbl, resp == null ? "Сервер недаступны" : resp.getMessage()); return;
+                show(errLbl, resp == null ? "Сервер недаступны" : resp.getMessage());
+                return;
             }
             LoginResponse lr = mapper.readValue(resp.getData(), LoginResponse.class);
             SceneManager.getInstance().onLoginSuccess(lr);
@@ -184,22 +192,25 @@ public class LoginView {
     }
 
     private void doRegister(String email, String first, String last,
-                             String pass, String birthStr, Label errLbl) {
+                            String pass, String birthStr, Label errLbl) {
         if (email.isBlank() || first.isBlank() || last.isBlank() || pass.isBlank() || birthStr.isBlank()) {
-            show(errLbl, "Запоўніце ўсе палі"); return;
+            show(errLbl, "Запоўніце ўсе палі");
+            return;
         }
         LocalDate birth;
         try {
             birth = LocalDate.parse(birthStr);
         } catch (DateTimeParseException e) {
-            show(errLbl, "Няправільны фармат даты. Выкарыстоўвайце гггг-мм-дд"); return;
+            show(errLbl, "Няправільны фармат даты. Выкарыстоўвайце гггг-мм-дд");
+            return;
         }
         try {
             RegisterRequest req = new RegisterRequest(email, pass, first, last, birth);
             String json = mapper.writeValueAsString(req);
             Response resp = server.sendRequest(new Request(Operation.REGISTER, json));
             if (resp == null || !resp.isSuccess()) {
-                show(errLbl, resp == null ? "Сервер недаступны" : resp.getMessage()); return;
+                show(errLbl, resp == null ? "Сервер недаступны" : resp.getMessage());
+                return;
             }
             LoginResponse lr = mapper.readValue(resp.getData(), LoginResponse.class);
             SceneManager.getInstance().onLoginSuccess(lr);

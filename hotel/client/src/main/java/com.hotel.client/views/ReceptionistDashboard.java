@@ -19,7 +19,9 @@ public class ReceptionistDashboard extends ViewBase {
 
     private final LoginResponse session;
 
-    public ReceptionistDashboard(LoginResponse session) { this.session = session; }
+    public ReceptionistDashboard(LoginResponse session) {
+        this.session = session;
+    }
 
     public Scene buildScene() {
         BorderPane root = new BorderPane();
@@ -36,8 +38,10 @@ public class ReceptionistDashboard extends ViewBase {
 
         VBox logo = new VBox(2);
         logo.getStyleClass().add("hotel-sidebar-header");
-        Label l1 = new Label("🏨 HOTEL");  l1.getStyleClass().add("hotel-logo-label");
-        Label l2 = new Label("Парцье");   l2.getStyleClass().add("hotel-logo-sub");
+        Label l1 = new Label("🏨 HOTEL");
+        l1.getStyleClass().add("hotel-logo-label");
+        Label l2 = new Label("Парцье");
+        l2.getStyleClass().add("hotel-logo-sub");
         logo.getChildren().addAll(l1, l2);
 
         Button b1 = sidebarBtn("📋  Чакаюць зацверджання");
@@ -47,11 +51,26 @@ public class ReceptionistDashboard extends ViewBase {
         Button b5 = sidebarBtn("⚙️  Акаўнт");
         Button[] all = {b1, b2, b3, b4, b5};
 
-        b1.setOnAction(e -> { activateBtn(b1, all); root.setCenter(scrollWrap(pendingView())); });
-        b2.setOnAction(e -> { activateBtn(b2, all); root.setCenter(scrollWrap(allRoomsView())); });
-        b3.setOnAction(e -> { activateBtn(b3, all); root.setCenter(scrollWrap(availRoomsView())); });
-        b4.setOnAction(e -> { activateBtn(b4, all); root.setCenter(scrollWrap(guestsView())); });
-        b5.setOnAction(e -> { activateBtn(b5, all); root.setCenter(scrollWrap(profileView())); });
+        b1.setOnAction(e -> {
+            activateBtn(b1, all);
+            root.setCenter(scrollWrap(pendingView()));
+        });
+        b2.setOnAction(e -> {
+            activateBtn(b2, all);
+            root.setCenter(scrollWrap(allRoomsView()));
+        });
+        b3.setOnAction(e -> {
+            activateBtn(b3, all);
+            root.setCenter(scrollWrap(availRoomsView()));
+        });
+        b4.setOnAction(e -> {
+            activateBtn(b4, all);
+            root.setCenter(scrollWrap(guestsView()));
+        });
+        b5.setOnAction(e -> {
+            activateBtn(b5, all);
+            root.setCenter(scrollWrap(profileView()));
+        });
 
         activateBtn(b1, all);
         sidebar.getChildren().addAll(logo,
@@ -91,9 +110,13 @@ public class ReceptionistDashboard extends ViewBase {
             try {
                 Response resp = send(new Request(Operation.APPROVE_RESERVATION,
                         mapper.writeValueAsString(sel.getId())));
-                if (resp != null && resp.isSuccess()) { showSuccess(msg, resp.getMessage()); loadPending(table, msg); }
-                else showError(msg, resp != null ? resp.getMessage() : "Памылка");
-            } catch (Exception ex) { showError(msg, ex.getMessage()); }
+                if (resp != null && resp.isSuccess()) {
+                    showSuccess(msg, resp.getMessage());
+                    loadPending(table, msg);
+                } else showError(msg, resp != null ? resp.getMessage() : "Памылка");
+            } catch (Exception ex) {
+                showError(msg, ex.getMessage());
+            }
         });
 
         cancelBtn.setOnAction(e -> {
@@ -103,9 +126,13 @@ public class ReceptionistDashboard extends ViewBase {
             try {
                 Response resp = send(new Request(Operation.CANCEL_RESERVATION,
                         mapper.writeValueAsString(sel.getId())));
-                if (resp != null && resp.isSuccess()) { showSuccess(msg, resp.getMessage()); loadPending(table, msg); }
-                else showError(msg, resp != null ? resp.getMessage() : "Памылка");
-            } catch (Exception ex) { showError(msg, ex.getMessage()); }
+                if (resp != null && resp.isSuccess()) {
+                    showSuccess(msg, resp.getMessage());
+                    loadPending(table, msg);
+                } else showError(msg, resp != null ? resp.getMessage() : "Памылка");
+            } catch (Exception ex) {
+                showError(msg, ex.getMessage());
+            }
         });
 
         Button refresh = refreshBtn(() -> loadPending(table, msg));
@@ -153,14 +180,21 @@ public class ReceptionistDashboard extends ViewBase {
     private VBox profileView() {
         VBox box = contentBox();
         var acc = session.getAccount();
-        TextField emailFld = field("Email"); emailFld.setText(acc.getEmail());
-        TextField firstFld = field("Імя");   firstFld.setText(acc.getFirstName());
-        TextField lastFld  = field("Прозвішча"); lastFld.setText(acc.getLastName());
+        TextField emailFld = field("Email");
+        emailFld.setText(acc.getEmail());
+        TextField firstFld = field("Імя");
+        firstFld.setText(acc.getFirstName());
+        TextField lastFld = field("Прозвішча");
+        lastFld.setText(acc.getLastName());
         PasswordField passFld = passField("Новы пароль (абавязкова)");
         Label errLbl = errorLabel();
-        Button saveBtn = new Button("Захаваць"); saveBtn.getStyleClass().add("hotel-btn-primary");
+        Button saveBtn = new Button("Захаваць");
+        saveBtn.getStyleClass().add("hotel-btn-primary");
         saveBtn.setOnAction(e -> {
-            if (passFld.getText().isBlank()) { showError(errLbl, "Для захавання ўвядзіце пароль"); return; }
+            if (passFld.getText().isBlank()) {
+                showError(errLbl, "Для захавання ўвядзіце пароль");
+                return;
+            }
             try {
                 var node = mapper.createObjectNode();
                 node.put("accountId", acc.getId());
@@ -171,7 +205,9 @@ public class ReceptionistDashboard extends ViewBase {
                 Response resp = send(new Request(Operation.UPDATE_ACCOUNT, mapper.writeValueAsString(node)));
                 if (resp != null && resp.isSuccess()) showSuccess(errLbl, resp.getMessage());
                 else showError(errLbl, resp != null ? resp.getMessage() : "Памылка");
-            } catch (Exception ex) { showError(errLbl, ex.getMessage()); }
+            } catch (Exception ex) {
+                showError(errLbl, ex.getMessage());
+            }
         });
         VBox form = new VBox(10,
                 fieldLabel("Email"), emailFld, fieldLabel("Імя"), firstFld,
@@ -191,22 +227,28 @@ public class ReceptionistDashboard extends ViewBase {
             Response resp = send(new Request(
                     onlyAvail ? Operation.GET_AVAILABLE_ROOMS : Operation.GET_ALL_ROOMS, null));
             if (resp != null && resp.isSuccess()) {
-                List<Room> rooms = mapper.readValue(resp.getData(), new TypeReference<>() {});
+                List<Room> rooms = mapper.readValue(resp.getData(), new TypeReference<>() {
+                });
                 table.setItems(FXCollections.observableArrayList(rooms));
                 clearMsg(msg);
             } else showError(msg, resp != null ? resp.getMessage() : "Памылка");
-        } catch (Exception ex) { showError(msg, ex.getMessage()); }
+        } catch (Exception ex) {
+            showError(msg, ex.getMessage());
+        }
     }
 
     private void loadReservations(TableView<Reservation> table, Label msg, Operation op) {
         try {
             Response resp = send(new Request(op, null));
             if (resp != null && resp.isSuccess()) {
-                List<Reservation> list = mapper.readValue(resp.getData(), new TypeReference<>() {});
+                List<Reservation> list = mapper.readValue(resp.getData(), new TypeReference<>() {
+                });
                 table.setItems(FXCollections.observableArrayList(list));
                 clearMsg(msg);
             } else showError(msg, resp != null ? resp.getMessage() : "Памылка");
-        } catch (Exception ex) { showError(msg, ex.getMessage()); }
+        } catch (Exception ex) {
+            showError(msg, ex.getMessage());
+        }
     }
 
     private void loadGuests(TableView<com.hotel.common.entities.Guest> table, Label msg) {
@@ -214,10 +256,13 @@ public class ReceptionistDashboard extends ViewBase {
             Response resp = send(new Request(Operation.GET_ALL_GUESTS, null));
             if (resp != null && resp.isSuccess()) {
                 var list = mapper.readValue(resp.getData(),
-                        new TypeReference<List<com.hotel.common.entities.Guest>>() {});
+                        new TypeReference<List<com.hotel.common.entities.Guest>>() {
+                        });
                 table.setItems(FXCollections.observableArrayList(list));
                 clearMsg(msg);
             } else showError(msg, resp != null ? resp.getMessage() : "Памылка");
-        } catch (Exception ex) { showError(msg, ex.getMessage()); }
+        } catch (Exception ex) {
+            showError(msg, ex.getMessage());
+        }
     }
 }

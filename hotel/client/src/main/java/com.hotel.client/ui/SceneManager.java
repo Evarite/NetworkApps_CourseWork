@@ -28,10 +28,6 @@ public class SceneManager {
         stage.setMinHeight(680);
     }
 
-    public LoginResponse getSession() {
-        return session;
-    }
-
     public void showLogin() {
         session = null;
         LoginView view = new LoginView();

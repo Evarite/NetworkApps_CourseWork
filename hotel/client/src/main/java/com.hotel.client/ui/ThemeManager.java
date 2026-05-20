@@ -12,8 +12,8 @@ public class ThemeManager {
 
     private boolean dark = false;
 
-    private String lightCss;
-    private String darkCss;
+    private final String lightCss;
+    private final String darkCss;
 
     private final List<Scene> scenes = new ArrayList<>();
 
@@ -33,17 +33,9 @@ public class ThemeManager {
         return INSTANCE;
     }
 
-    public boolean isDark() {
-        return dark;
-    }
-
     public void register(Scene scene) {
         scenes.add(scene);
         applyTo(scene);
-    }
-
-    public void unregister(Scene scene) {
-        scenes.remove(scene);
     }
 
     public void toggle() {

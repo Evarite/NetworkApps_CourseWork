@@ -11,7 +11,6 @@ import java.net.Socket;
 import java.util.ResourceBundle;
 
 public class ServerClient {
-
     private Socket socket;
     private ObjectOutputStream out;
     private ObjectInputStream in;

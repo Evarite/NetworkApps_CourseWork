@@ -31,7 +31,9 @@ public class GuestDashboard extends ViewBase {
 
     private Button activeBtn;
 
-    public GuestDashboard(LoginResponse session) { this.session = session; }
+    public GuestDashboard(LoginResponse session) {
+        this.session = session;
+    }
 
     public Scene buildScene() {
         BorderPane root = new BorderPane();
@@ -58,11 +60,11 @@ public class GuestDashboard extends ViewBase {
         sub.getStyleClass().add("hotel-logo-sub");
         logoBox.getChildren().addAll(logo, sub);
 
-        Button btnAllRooms   = sidebarBtn("🛏  Усе нумары");
+        Button btnAllRooms = sidebarBtn("🛏  Усе нумары");
         Button btnAvailRooms = sidebarBtn("✅  Свабодныя нумары");
-        Button btnBook       = sidebarBtn("📋  Забраніраваць");
-        Button btnMyRes      = sidebarBtn("🗓  Мае браніраванні");
-        Button btnProfile    = sidebarBtn("⚙️  Мой акаўнт");
+        Button btnBook = sidebarBtn("📋  Забраніраваць");
+        Button btnMyRes = sidebarBtn("🗓  Мае браніраванні");
+        Button btnProfile = sidebarBtn("⚙️  Мой акаўнт");
 
         Button[] allBtns = {btnAllRooms, btnAvailRooms, btnBook, btnMyRes, btnProfile};
 
@@ -167,7 +169,9 @@ public class GuestDashboard extends ViewBase {
                 } else {
                     showError(msg, resp != null ? resp.getMessage() : "Памылка сервера");
                 }
-            } catch (Exception ex) { showError(msg, ex.getMessage()); }
+            } catch (Exception ex) {
+                showError(msg, ex.getMessage());
+            }
         });
 
         Button refresh = refreshBtn(() -> loadMyReservations(table, msg));
@@ -191,15 +195,17 @@ public class GuestDashboard extends ViewBase {
         roomCombo.setMaxWidth(Double.MAX_VALUE);
         roomCombo.setPromptText("Выберыце нумар");
         roomCombo.setCellFactory(lv -> new ListCell<>() {
-            @Override protected void updateItem(Room r, boolean empty) {
+            @Override
+            protected void updateItem(Room r, boolean empty) {
                 super.updateItem(r, empty);
                 setText(empty || r == null ? "" :
                         "#" + r.getNumber() + " — " + TableHelper.roomTypeStr(r.getType())
-                        + " | " + String.format("%.0f BYN/ноч", r.getPrice()));
+                                + " | " + String.format("%.0f BYN/ноч", r.getPrice()));
             }
         });
         roomCombo.setButtonCell(new ListCell<>() {
-            @Override protected void updateItem(Room r, boolean empty) {
+            @Override
+            protected void updateItem(Room r, boolean empty) {
                 super.updateItem(r, empty);
                 setText(empty || r == null ? "" :
                         "#" + r.getNumber() + " — " + TableHelper.roomTypeStr(r.getType()));
@@ -210,10 +216,12 @@ public class GuestDashboard extends ViewBase {
         try {
             Response resp = send(new Request(Operation.GET_AVAILABLE_ROOMS, null));
             if (resp != null && resp.isSuccess()) {
-                List<Room> rooms = mapper.readValue(resp.getData(), new TypeReference<>() {});
+                List<Room> rooms = mapper.readValue(resp.getData(), new TypeReference<>() {
+                });
                 roomCombo.getItems().addAll(rooms);
             }
-        } catch (Exception ex) {}
+        } catch (Exception ex) {
+        }
 
         TextField dateFld = field("Дата заезду (гггг-мм-дд)");
         Spinner<Integer> durSpinner = new Spinner<>(1, 365, 1);
@@ -227,16 +235,25 @@ public class GuestDashboard extends ViewBase {
 
         bookBtn.setOnAction(e -> {
             Room selRoom = roomCombo.getValue();
-            if (selRoom == null) { showError(errLbl, "Выберыце нумар"); return; }
+            if (selRoom == null) {
+                showError(errLbl, "Выберыце нумар");
+                return;
+            }
             String dateStr = dateFld.getText().trim();
-            if (dateStr.isBlank()) { showError(errLbl, "Увядзіце дату заезду"); return; }
+            if (dateStr.isBlank()) {
+                showError(errLbl, "Увядзіце дату заезду");
+                return;
+            }
             LocalDate date;
-            try { date = LocalDate.parse(dateStr); }
-            catch (DateTimeParseException ex) {
-                showError(errLbl, "Няправільны фармат даты. Выкарыстоўвайце гггг-мм-дд"); return;
+            try {
+                date = LocalDate.parse(dateStr);
+            } catch (DateTimeParseException ex) {
+                showError(errLbl, "Няправільны фармат даты. Выкарыстоўвайце гггг-мм-дд");
+                return;
             }
             if (date.isBefore(LocalDate.now())) {
-                showError(errLbl, "Дата заезду не можа быць у мінулым"); return;
+                showError(errLbl, "Дата заезду не можа быць у мінулым");
+                return;
             }
             int dur = durSpinner.getValue();
             try {
@@ -253,13 +270,16 @@ public class GuestDashboard extends ViewBase {
                     roomCombo.getItems().clear();
                     Response r2 = send(new Request(Operation.GET_AVAILABLE_ROOMS, null));
                     if (r2 != null && r2.isSuccess()) {
-                        List<Room> rooms = mapper.readValue(r2.getData(), new TypeReference<>() {});
+                        List<Room> rooms = mapper.readValue(r2.getData(), new TypeReference<>() {
+                        });
                         roomCombo.getItems().addAll(rooms);
                     }
                 } else {
                     showError(errLbl, resp != null ? resp.getMessage() : "Памылка сервера");
                 }
-            } catch (Exception ex) { showError(errLbl, ex.getMessage()); }
+            } catch (Exception ex) {
+                showError(errLbl, ex.getMessage());
+            }
         });
 
         VBox form = new VBox(10,
@@ -293,7 +313,10 @@ public class GuestDashboard extends ViewBase {
         saveBtn.getStyleClass().add("hotel-btn-primary");
 
         saveBtn.setOnAction(e -> {
-            if (passFld.getText().isBlank()) { showError(errLbl, "Для захавання увядзіце пароль"); return; }
+            if (passFld.getText().isBlank()) {
+                showError(errLbl, "Для захавання увядзіце пароль");
+                return;
+            }
             try {
                 var reqMap = mapper.createObjectNode();
                 reqMap.put("accountId", acc.getId());
@@ -304,13 +327,15 @@ public class GuestDashboard extends ViewBase {
                 Response resp = send(new Request(Operation.UPDATE_ACCOUNT, mapper.writeValueAsString(reqMap)));
                 if (resp != null && resp.isSuccess()) showSuccess(errLbl, resp.getMessage());
                 else showError(errLbl, resp != null ? resp.getMessage() : "Памылка сервера");
-            } catch (Exception ex) { showError(errLbl, ex.getMessage()); }
+            } catch (Exception ex) {
+                showError(errLbl, ex.getMessage());
+            }
         });
 
         VBox form = new VBox(10,
-                fieldLabel("Email"),       emailFld,
-                fieldLabel("Імя"),         firstFld,
-                fieldLabel("Прозвішча"),   lastFld,
+                fieldLabel("Email"), emailFld,
+                fieldLabel("Імя"), firstFld,
+                fieldLabel("Прозвішча"), lastFld,
                 fieldLabel("Новы пароль"), passFld,
                 errLbl, saveBtn);
         form.setMaxWidth(420);
@@ -324,13 +349,16 @@ public class GuestDashboard extends ViewBase {
             Operation op = onlyAvailable ? Operation.GET_AVAILABLE_ROOMS : Operation.GET_ALL_ROOMS;
             Response resp = send(new Request(op, null));
             if (resp != null && resp.isSuccess()) {
-                List<Room> rooms = mapper.readValue(resp.getData(), new TypeReference<>() {});
+                List<Room> rooms = mapper.readValue(resp.getData(), new TypeReference<>() {
+                });
                 table.setItems(FXCollections.observableArrayList(rooms));
                 clearMsg(msg);
             } else {
                 showError(msg, resp != null ? resp.getMessage() : "Памылка сервера");
             }
-        } catch (Exception ex) { showError(msg, ex.getMessage()); }
+        } catch (Exception ex) {
+            showError(msg, ex.getMessage());
+        }
     }
 
     private void loadMyReservations(TableView<Reservation> table, Label msg) {
@@ -338,12 +366,15 @@ public class GuestDashboard extends ViewBase {
             String json = mapper.writeValueAsString(session.getAccount().getId());
             Response resp = send(new Request(Operation.GET_MY_RESERVATIONS, json));
             if (resp != null && resp.isSuccess()) {
-                List<Reservation> list = mapper.readValue(resp.getData(), new TypeReference<>() {});
+                List<Reservation> list = mapper.readValue(resp.getData(), new TypeReference<>() {
+                });
                 table.setItems(FXCollections.observableArrayList(list));
                 clearMsg(msg);
             } else {
                 showError(msg, resp != null ? resp.getMessage() : "Памылка сервера");
             }
-        } catch (Exception ex) { showError(msg, ex.getMessage()); }
+        } catch (Exception ex) {
+            showError(msg, ex.getMessage());
+        }
     }
 }

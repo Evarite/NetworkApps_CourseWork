@@ -13,7 +13,7 @@ public class RatingDialog {
 
     public Optional<Integer> show(int reservationId) {
         Dialog<Integer> dialog = new Dialog<>();
-        dialog.setTitle("Выселенне госця");
+        dialog.setTitle("Высяленне госця");
         dialog.setHeaderText(null);
 
         // Кнопкі
